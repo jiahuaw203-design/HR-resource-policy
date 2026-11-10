@@ -1,0 +1,709 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>人力资源政策雷达 · 上海</title>
+<meta name="description" content="每天扫一眼上海人社局新出的政策：社保、公积金、劳动合同、个税、补贴。">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23FAF9F5'/%3E%3Crect x='6' y='5' width='20' height='22' fill='none' stroke='%231C1D19' stroke-width='1.6'/%3E%3Crect x='9' y='9' width='14' height='2' fill='%239E3B32'/%3E%3Crect x='9' y='14' width='14' height='1.2' fill='%2355574F'/%3E%3Crect x='9' y='18' width='10' height='1.2' fill='%2355574F'/%3E%3Crect x='9' y='22' width='12' height='1.2' fill='%2355574F'/%3E%3C/svg%3E">
+
+<style>
+/* ==========================================================
+   ① 设计令牌 —— 换皮只改这里
+   改配色、圆角、字号、最大宽度，都不用碰下面的布局代码。
+   ========================================================== */
+:root{
+  --paper:      #FAF9F5;   /* 页面底色 */
+  --ink:        #1C1D19;   /* 正文黑 */
+  --ink-2:      #55574F;   /* 次要文字 */
+  --ink-3:      #8B8D84;   /* 辅助信息、日期 */
+  --rule:       #E3E0D6;   /* 分隔线 */
+  --seal:       #9E3B32;   /* 强调色（印章红），只用于"新"标记和选中态 */
+  --tag:        #EFECE2;   /* 标签底色 */
+  --wash:       #F2F0E7;   /* 悬停底色 */
+  --radius:     2px;       /* 圆角：改 0 更硬朗，改 6px 更柔和 */
+  --maxw:       900px;     /* 内容最大宽度 */
+  --fs-body:    15px;      /* 正文字号 */
+  --fs-title:   16.5px;    /* 条目标题字号 */
+  --font-sans:  -apple-system,BlinkMacSystemFont,"PingFang SC","Hiragino Sans GB","Microsoft YaHei","Noto Sans SC",sans-serif;
+  --font-serif: "Songti SC","Source Han Serif SC","Noto Serif SC","SimSun",serif;
+}
+
+/* ==========================================================
+   ② 基础与排版
+   ========================================================== */
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{
+  margin:0;background:var(--paper);color:var(--ink);
+  font-size:var(--fs-body);line-height:1.65;font-family:var(--font-sans);
+  -webkit-font-smoothing:antialiased;
+}
+.serif{font-family:var(--font-serif)}
+:focus-visible{outline:2px solid var(--seal);outline-offset:2px}
+button{font-family:inherit}
+.wrap{max-width:var(--maxw);margin:0 auto;padding:0 20px 64px}
+
+/* ==========================================================
+   ③ 报头
+   ========================================================== */
+.masthead{display:flex;flex-direction:column;gap:8px;padding:26px 0 16px;border-bottom:1px solid var(--rule)}
+.brand{display:flex;align-items:baseline;gap:12px;flex-wrap:wrap}
+.brand h1{margin:0;font-size:23px;font-weight:600;letter-spacing:.02em;line-height:1.3}
+.brand .mark{width:16px;height:19px;flex:0 0 auto;align-self:center}
+.meta{font-size:12.5px;color:var(--ink-3);letter-spacing:.03em;margin:0}
+.meta .sep{margin:0 8px;color:#CFCCC2}
+@media (min-width:760px){
+  .masthead{flex-direction:row;align-items:flex-end;justify-content:space-between;gap:24px}
+}
+
+/* ==========================================================
+   ④ 预留位 A：顶部横幅
+   现在带 hidden，去掉 hidden 并往里填内容就能用
+   ========================================================== */
+.slot-banner{
+  margin-top:16px;padding:12px 14px;border:1px solid var(--rule);
+  background:var(--tag);font-size:13.5px;color:var(--ink-2);border-radius:var(--radius);
+}
+
+/* ==========================================================
+   ⑤ 标签页
+   ========================================================== */
+.tabs{display:flex;gap:26px;border-bottom:1px solid var(--rule)}
+.tab{background:none;border:0;padding:13px 0;min-height:44px;font-size:14px;color:var(--ink-2);cursor:pointer;position:relative}
+.tab[aria-selected="true"]{color:var(--ink);font-weight:600}
+.tab[aria-selected="true"]::after{content:"";position:absolute;left:0;right:0;bottom:-1px;height:2px;background:var(--seal)}
+
+/* ==========================================================
+   ⑥ 概览
+   ========================================================== */
+.statline{display:flex;flex-wrap:wrap;align-items:baseline;gap:6px 18px;padding:16px 0 4px;font-size:13px;color:var(--ink-2);font-variant-numeric:tabular-nums}
+.statline b{font-size:16px;font-weight:600;color:var(--ink);margin-right:4px}
+
+/* ==========================================================
+   ⑦ 筛选区
+   ========================================================== */
+.toolbar{display:flex;flex-direction:column;gap:12px;padding:14px 0 6px}
+.chips{display:flex;gap:8px;overflow-x:auto;padding-bottom:2px;scrollbar-width:none;-webkit-overflow-scrolling:touch}
+.chips::-webkit-scrollbar{display:none}
+.chip{
+  flex:0 0 auto;display:inline-flex;align-items:center;gap:7px;
+  padding:8px 13px;min-height:38px;
+  border:1px solid var(--rule);background:transparent;border-radius:var(--radius);
+  font-size:13.5px;color:var(--ink-2);cursor:pointer;
+  transition:background .15s,border-color .15s,color .15s;
+}
+.chip .n{font-size:11.5px;color:var(--ink-3);font-variant-numeric:tabular-nums}
+.chip[aria-pressed="true"]{background:var(--ink);border-color:var(--ink);color:#fff}
+.chip[aria-pressed="true"] .n{color:#B9BAB2}
+.chip:hover:not([aria-pressed="true"]){background:var(--tag)}
+
+.filters{display:flex;gap:10px;align-items:center}
+.search{position:relative;flex:1 1 auto;min-width:0}
+.search input{
+  width:100%;padding:11px 13px;border:1px solid var(--rule);background:#fff;
+  border-radius:var(--radius);font-size:16px;color:var(--ink);font-family:inherit;
+}
+.search input::placeholder{color:#A9AAA2}
+.search input:focus{border-color:#B9B5A6;outline:none}
+.range{
+  flex:0 0 auto;padding:11px 8px;min-height:44px;
+  border:1px solid var(--rule);background:#fff;border-radius:var(--radius);
+  font-size:13px;color:var(--ink-2);font-family:inherit;cursor:pointer;
+}
+
+/* ==========================================================
+   ⑧ 列表
+   ========================================================== */
+.day{padding:20px 0 2px}
+.day-head{display:flex;align-items:baseline;gap:10px;margin-bottom:8px}
+.day-date{font-size:15px;font-weight:600;letter-spacing:.01em;font-variant-numeric:tabular-nums}
+.day-tag{display:inline-flex;align-items:center;gap:5px;font-size:11.5px;color:var(--seal);letter-spacing:.04em}
+.day-tag .dot{width:5px;height:5px;background:var(--seal);border-radius:50%;display:inline-block}
+.day-count{margin-left:auto;font-size:12px;color:var(--ink-3);font-variant-numeric:tabular-nums}
+@media (min-width:760px){
+  .day{display:grid;grid-template-columns:96px 1fr;gap:0 26px;padding:26px 0 4px}
+  .day-head{flex-direction:column;align-items:flex-start;gap:5px;margin:0;padding-top:2px}
+  .day-count{margin-left:0}
+}
+
+.items{list-style:none;margin:0;padding:0;border-top:1px solid var(--rule)}
+.item{
+  display:grid;grid-template-columns:1fr;gap:4px;
+  padding:14px 8px 15px;margin:0 -8px;
+  border-bottom:1px solid var(--rule);transition:background .15s;
+}
+.item:hover{background:var(--wash)}
+.item-body{min-width:0}
+.item-title{margin:0;font-size:var(--fs-title);line-height:1.5;font-weight:600;font-family:var(--font-serif);letter-spacing:.01em}
+.item-summary{margin:7px 0 0;font-size:13.5px;line-height:1.75;color:var(--ink-2);max-width:46em}
+/* 总结字段（z）：现在多数条目还没有，有就显示，没有就整行不出现 */
+.item-note{
+  margin:8px 0 0;padding:8px 11px;max-width:46em;
+  background:var(--wash);border-radius:var(--radius);
+  font-size:13px;line-height:1.75;color:var(--ink-2);
+}
+.item-note .k{
+  display:inline-block;margin-right:7px;padding:0 5px;
+  font-size:11px;letter-spacing:.06em;color:var(--seal);
+  border:1px solid #D9CFC2;border-radius:var(--radius);vertical-align:1px;
+}
+.item-meta{display:flex;align-items:center;flex-wrap:wrap;gap:8px;margin-top:9px;font-size:12px;color:var(--ink-3)}
+.cat{padding:2px 7px;background:var(--tag);color:var(--ink-2);border-radius:var(--radius);font-size:11.5px;letter-spacing:.03em}
+.src{color:var(--ink-2)}
+.docno{font-variant-numeric:tabular-nums}
+.item-act{display:flex;align-items:center;gap:10px}
+@media (min-width:760px){
+  .item{grid-template-columns:1fr 86px;gap:24px;align-items:start;padding:16px 10px;margin:0 -10px}
+  .item-act{justify-content:flex-end;padding-top:2px}
+}
+.link-btn{
+  display:inline-flex;align-items:center;gap:5px;min-height:36px;padding:6px 2px;
+  background:none;border:0;border-bottom:1px solid #C9C5B6;
+  color:var(--ink-2);font-size:12.5px;cursor:pointer;text-decoration:none;
+  transition:color .15s,border-color .15s;white-space:nowrap;
+}
+.link-btn:hover{color:var(--seal);border-color:var(--seal)}
+
+/* ==========================================================
+   ⑨ 空态 / 页脚 / 提示
+   ========================================================== */
+.empty{padding:64px 0 72px;text-align:center;color:var(--ink-3);border-top:1px solid var(--rule)}
+.empty p{margin:0 0 14px;font-size:14px;line-height:1.8}
+.empty .reset{min-height:40px;padding:8px 16px;background:none;border:1px solid var(--rule);border-radius:var(--radius);font-size:13px;color:var(--ink-2);cursor:pointer}
+.empty .reset:hover{background:var(--tag)}
+
+.foot{margin-top:44px;padding-top:16px;border-top:1px solid var(--rule);font-size:12.5px;line-height:1.9;color:var(--ink-3)}
+.foot b{color:var(--ink-2);font-weight:600}
+
+/* 预留位 B：列表底部以后加模块的地方 */
+.slot-bottom{margin-top:32px}
+
+/* ==========================================================
+   ⑨b 资料库
+   ========================================================== */
+.lib-bar{display:flex;flex-wrap:wrap;gap:10px;padding:14px 0 10px}
+.btn{
+  min-height:40px;padding:8px 14px;
+  border:1px solid var(--rule);background:#fff;border-radius:var(--radius);
+  font-size:13.5px;color:var(--ink-2);cursor:pointer;
+  transition:background .15s,border-color .15s,color .15s;
+}
+.btn:hover{background:var(--tag)}
+.btn-primary{background:var(--ink);border-color:var(--ink);color:#fff}
+.btn-primary:hover{background:#332F28;border-color:#332F28}
+
+.form{
+  border:1px solid var(--rule);border-radius:var(--radius);
+  background:#fff;padding:16px;margin:0 0 18px;
+}
+.form-head{display:flex;align-items:baseline;justify-content:space-between;gap:12px;margin-bottom:14px}
+.form-head h2{margin:0;font-size:15px;font-weight:600}
+.form-head .close{background:none;border:0;color:var(--ink-3);font-size:12.5px;cursor:pointer;padding:4px 2px;min-height:36px}
+.form-head .close:hover{color:var(--seal)}
+.grid2{display:grid;grid-template-columns:1fr;gap:0 14px}
+@media (min-width:760px){.grid2{grid-template-columns:1fr 1fr}}
+.field{display:flex;flex-direction:column;gap:5px;margin-bottom:12px;min-width:0}
+.field label{font-size:12.5px;color:var(--ink-3)}
+.field input,.field select,.field textarea{
+  width:100%;padding:9px 11px;border:1px solid var(--rule);border-radius:var(--radius);
+  font-size:16px;font-family:inherit;color:var(--ink);background:#fff;
+}
+.field input:focus,.field select:focus,.field textarea:focus{outline:none;border-color:#B9B5A6}
+.field textarea{min-height:64px;resize:vertical;font-size:15px;line-height:1.6}
+.form-actions{display:flex;gap:10px;justify-content:flex-end;flex-wrap:wrap}
+
+.lib-list{list-style:none;margin:6px 0 0;padding:0;border-top:1px solid var(--rule)}
+.lib-item{
+  display:grid;grid-template-columns:1fr;gap:8px;
+  padding:14px 8px 15px;margin:0 -8px;border-bottom:1px solid var(--rule);
+  transition:background .15s;
+}
+.lib-item:hover{background:var(--wash)}
+@media (min-width:760px){
+  .lib-item{grid-template-columns:1fr 96px;gap:24px;align-items:start;padding:16px 10px;margin:0 -10px}
+  .lib-act{justify-content:flex-end}
+}
+.lib-title{
+  margin:0;font-size:16px;line-height:1.5;font-weight:600;
+  font-family:var(--font-serif);letter-spacing:.01em;
+}
+.lib-note{margin:7px 0 0;font-size:13.5px;line-height:1.75;color:var(--ink-2);max-width:46em}
+.lib-meta{display:flex;align-items:center;flex-wrap:wrap;gap:8px;margin-top:9px;font-size:12px;color:var(--ink-3)}
+.lib-act{display:flex;align-items:center;gap:14px;flex-wrap:wrap}
+.lib-del{
+  background:none;border:0;color:var(--ink-3);font-size:12.5px;cursor:pointer;
+  min-height:36px;padding:6px 2px;
+}
+.lib-del:hover{color:var(--seal)}
+
+.toast{
+  position:fixed;left:50%;bottom:28px;transform:translate(-50%,10px);
+  max-width:calc(100vw - 40px);padding:10px 16px;
+  background:#26271F;color:#F4F2EA;font-size:13px;border-radius:var(--radius);
+  opacity:0;pointer-events:none;transition:opacity .2s,transform .2s;z-index:20;
+}
+.toast.on{opacity:1;transform:translate(-50%,0)}
+
+@media (prefers-reduced-motion:reduce){*{transition:none !important}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <!-- ===== 区块：报头 ===== -->
+  <header class="masthead">
+    <div class="brand">
+      <svg class="mark" viewBox="0 0 16 19" aria-hidden="true">
+        <rect x="0.6" y="0.6" width="14.8" height="17.8" fill="none" stroke="#1C1D19" stroke-width="1.2"/>
+        <rect x="3" y="3.4" width="10" height="1.6" fill="#9E3B32"/>
+        <rect x="3" y="7.2" width="10" height="0.9" fill="#55574F"/>
+        <rect x="3" y="10" width="7" height="0.9" fill="#55574F"/>
+        <rect x="3" y="12.8" width="9" height="0.9" fill="#55574F"/>
+      </svg>
+      <h1 class="serif">人力资源政策雷达</h1>
+    </div>
+    <p class="meta">
+      上海人社局 · 规范性文件＋其他文件
+      <span class="sep">/</span><span id="dataRange">—</span>
+    </p>
+  </header>
+
+  <!-- ===== 预留位 A：想加一条公告/说明，把 hidden 去掉即可 ===== -->
+  <div class="slot-banner" id="slotBanner" hidden>
+    这里可以放一句话公告，例如"本周六系统维护，暂停推送"。
+  </div>
+
+  <!-- ===== 区块：视图切换 ===== -->
+  <nav class="tabs" role="tablist" aria-label="页面">
+    <button class="tab serif" role="tab" aria-selected="true" data-tab="list">政策列表</button>
+    <button class="tab serif" role="tab" aria-selected="false" data-tab="library">资料库</button>
+  </nav>
+
+  <!-- ===== 视图：政策列表 ===== -->
+  <main id="viewList">
+
+    <div class="statline" id="statline"></div>
+
+    <div class="toolbar">
+      <div class="chips" id="chips" role="group" aria-label="按主题筛选"></div>
+      <div class="filters">
+        <div class="search">
+          <input id="q" type="search" placeholder="搜标题、摘要或文号，例如：派遣、缴费基数" aria-label="搜索政策">
+        </div>
+        <select class="range" id="range" aria-label="时间范围">
+          <option value="0">全部时间</option>
+          <option value="30">近 30 天</option>
+          <option value="7">近 7 天</option>
+        </select>
+      </div>
+    </div>
+
+    <div id="list"></div>
+
+    <p class="foot">
+      <b>数据来源：</b>上海市人力资源和社会保障局官网（rsj.sh.gov.cn）"规范性文件""其他文件"两个栏目，由本地脚本按关键词筛选后写入本页数据区。
+      政策内容以官网原文为准，本页只做索引，不替代原文；涉及具体处置请核对文件条款。
+    </p>
+
+    <!-- ===== 预留位 B：以后加"本周概览""常用问答"之类模块放这里 ===== -->
+    <div class="slot-bottom" id="slotBottom" hidden></div>
+  </main>
+
+  <!-- ==========================================================
+       视图：资料库
+       这里放的是"自己存"的内容：政策原文、解读、公司制度、个人笔记的索引。
+       注意：纯静态网页存不了文件本体，只登记信息；数据存在当前浏览器里。
+       ========================================================== -->
+  <main id="viewLibrary" hidden>
+
+    <div class="statline" id="libStat"></div>
+
+    <div class="lib-bar">
+      <button class="btn btn-primary" id="libAdd">新增一份</button>
+      <button class="btn" id="libExport">导出备份</button>
+      <button class="btn" id="libImportBtn">导入备份</button>
+      <input type="file" id="libImportFile" accept=".json,application/json" hidden>
+    </div>
+
+    <!-- 新增表单（默认收起） -->
+    <div class="form" id="libForm" hidden>
+      <div class="form-head">
+        <h2>登记一份资料</h2>
+        <button class="close" id="libCancel">取消</button>
+      </div>
+      <div class="field">
+        <label for="fTitle">标题（必填）</label>
+        <input id="fTitle" type="text" placeholder="例如：2026年本市社保缴费基数通知">
+      </div>
+      <div class="grid2">
+        <div class="field">
+          <label for="fType">类型</label>
+          <select id="fType">
+            <option>政策原文</option>
+            <option>政策解读</option>
+            <option>公司制度</option>
+            <option>个人笔记</option>
+            <option>其他</option>
+          </select>
+        </div>
+        <div class="field">
+          <label for="fDate">日期</label>
+          <input id="fDate" type="date">
+        </div>
+      </div>
+      <div class="field">
+        <label for="fUrl">原文或文件链接（可留空）</label>
+        <input id="fUrl" type="url" placeholder="https://…">
+      </div>
+      <div class="field">
+        <label for="fNote">备注（可留空）</label>
+        <textarea id="fNote" placeholder="记一句自己关心的点，例如：这条影响劳务派遣岗位比例"></textarea>
+      </div>
+      <div class="form-actions">
+        <button class="btn" id="libCancel2">取消</button>
+        <button class="btn btn-primary" id="libSave">保存</button>
+      </div>
+    </div>
+
+    <div class="search" style="margin:6px 0 4px">
+      <input id="libQ" type="search" placeholder="搜标题或备注" aria-label="搜索资料">
+    </div>
+
+    <div id="libList"></div>
+
+    <p class="foot">
+      <b>关于存储：</b>资料登记存在<b>当前浏览器</b>里（localStorage），换手机、换电脑、清理浏览器缓存都会看不到，所以定期点"导出备份"存一份 JSON 到本地；到别的设备再点"导入备份"。
+      文件本体（PDF、Word）目前不会上传，只登记名称和链接——网页是静态的，没有后端接收文件，这一步要等云服务器阶段。
+    </p>
+  </main>
+
+</div>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<!-- 数据与界面分开放：上面是界面，下面这一段是数据（脚本会自动替换，不要改动标记行） -->
+<script>
+/* ===== DATA:START 数据区，由 fetch_policies.py 自动写入 ===== */
+window.POLICY_DATA = [{"t":"上海市人力资源和社会保障局关于实施劳务派遣经营许可有关事项的通知","no":"沪人社规〔2026〕22号","d":"2026-11-05","u":"https://rsj.sh.gov.cn/tldgx_17731/20261109/t0035_1444579.html","s":"上海市人社局","c":"劳动合同","x":"申请人可以通过上海市“一网通办”平台在线填写申请书，向人力资源社会保障行政部门提出劳务派遣许可申请。"},{"t":"上海市人力资源和社会保障局关于印发《中国（上海）自由贸易试验区及临港新片区实行劳务派遣经营许可告知承诺的试点办法》的通知","no":"沪人社规〔2026〕23号","d":"2026-11-05","u":"https://rsj.sh.gov.cn/tldgx_17731/20261109/t0035_1444580.html","s":"上海市人社局","c":"劳动合同","x":""},{"t":"上海市人力资源和社会保障局关于公布新技能培训项目目录（2026年）的通知","no":"沪人社职〔2026〕247号","d":"2026-10-23","u":"https://rsj.sh.gov.cn/tjypx_17737/20261030/t0035_1444449.html","s":"上海市人社局","c":"人才与技能","x":"为顺应新技术、新业态、新职业发展趋势，满足行业企业对技能人才培训的实际需求，经广泛征集和专家评审论证。"},{"t":"上海市人力资源和社会保障局关于公布上海市第二批国（境）外职业技能比照认定目录的通知","no":"沪人社职〔2026〕217号","d":"2026-09-14","u":"https://rsj.sh.gov.cn/tjypx_17737/20260915/t0035_1443731.html","s":"上海市人社局","c":"人才与技能","x":"为深入贯彻党中央、国务院关于新时代高技能人才队伍建设的决策部署，深化技能评价制度改革，加强国际技能合作交流。"},{"t":"上海市人力资源和社会保障局关于调整本市工伤人员伤残津贴和生活护理费标准的通知","no":"沪人社规〔2026〕19号","d":"2026-09-03","u":"https://rsj.sh.gov.cn/tshbx_17729/20260929/t0035_1443999.html","s":"上海市人社局","c":"补贴","x":"为保障工伤人员的基本生活，自2026年1月1日起对本市致残一级至四级工伤人员的伤残津贴和生活不能自理工伤人员的生活护理费标准进行调整。"},{"t":"上海市人力资源和社会保障局关于同意上海南天电脑系统有限公司等单位退出职业技能等级评价机构的批复","no":"沪人社职〔2026〕209号","d":"2026-08-28","u":"https://rsj.sh.gov.cn/tjypx_17737/20260915/t0035_1443723.html","s":"上海市人社局","c":"人才与技能","x":"上海南天电脑系统有限公司、携程旅游网络技术（上海）有限公司、上海东方雨虹防水工程有限公司等，逾期未按规定提交备案期满评估申请。"},{"t":"上海市人力资源和社会保障局关于开展境外职业资格证书清单项目持证人员第四批职称考核认定的通知","no":"沪人社专〔2026〕195号","d":"2026-08-13","u":"https://rsj.sh.gov.cn/trsrc_17739/20260819/t0035_1443221.html","s":"上海市人社局","c":"人才与技能","x":""},{"t":"上海市人力资源和社会保障局关于公布上海建桥学院有限责任公司等职业技能等级认定社会培训评价组织的通知","no":"沪人社职〔2026〕196号","d":"2026-08-13","u":"https://rsj.sh.gov.cn/tjypx_17737/20260819/t0035_1443211.html","s":"上海市人社局","c":"人才与技能","x":"经单位自主申报、材料评估、现场考察、结果公示等程序，现同意上海建桥学院有限责任公司等新增为社会培训评价组织。"},{"t":"上海市人力资源和社会保障局关于公布上海市物联网行业协会社会培训评价机构期满复评结果的通知","no":"沪人社职〔2026〕197号","d":"2026-08-13","u":"https://rsj.sh.gov.cn/tjypx_17737/20260819/t0035_1443212.html","s":"上海市人社局","c":"人才与技能","x":"经限期整改复评、结果公示等环节，上海市物联网行业协会社会培训评价组织复评结果为评估通过，同意其自上一轮有效期届满之日起延长3年有效期。"},{"t":"上海市人力资源和社会保障局关于印发《上海市失业保险金申领发放实施办法》的通知","no":"沪人社规〔2026〕18号","d":"2026-08-06","u":"https://rsj.sh.gov.cn/tshbx_17729/20260812/t0035_1443067.html","s":"上海市人社局","c":"社保","x":""},{"t":"上海市人力资源和社会保障局关于同意上海南湖职业技术学院等备案为院校职业技能等级评价机构的通知","no":"沪人社职〔2026〕180号","d":"2026-08-05","u":"https://rsj.sh.gov.cn/tjypx_17737/20260819/t0035_1443209.html","s":"上海市人社局","c":"人才与技能","x":"等有关要求，在单位申报、上级主管部门推荐、专家评估、结果公示的基础上，经研究。"},{"t":"上海市人力资源和社会保障局关于公布上海仪电(集团)有限公司等职业技能等级认定社会培训评价组织的通知","no":"沪人社职〔2026〕183号","d":"2026-08-05","u":"https://rsj.sh.gov.cn/tjypx_17737/20260819/t0035_1443210.html","s":"上海市人社局","c":"人才与技能","x":"经单位自主申报、材料评估、现场考察、结果公示等程序，现同意上海仪电(集团)有限公司新增为社会培训评价组织。"},{"t":"上海市人力资源和社会保障局关于开展“产教评”技能生态链建设试点工作的通知","no":"沪人社职〔2026〕178号","d":"2026-08-03","u":"https://rsj.sh.gov.cn/tjypx_17737/20260810/t0035_1443013.html","s":"上海市人社局","c":"人才与技能","x":"为深入贯彻落实市委、市政府关于深化职业技能培训机制改革的决策部署，围绕上海重点产业领域，构建“产教评”技能生态链。"},{"t":"上海市人力资源和社会保障局关于印发《上海市就业和社会保障“十五五”规划》的通知","no":"沪人社研〔2026〕177号","d":"2026-07-31","u":"https://rsj.sh.gov.cn/tqt_17742/20260824/t0035_1443280.html","s":"上海市人社局","c":"人才与技能","x":"为深入推进“十五五”时期上海市就业和社会保障事业高质量发展，更好服务国家战略和本市经济社会发展大局，制定本规划。"},{"t":"上海市人力资源和社会保障局 上海市财政局 上海市教育委员会关于延续实施一次性扩岗补助政策的通知","no":"沪人社规〔2026〕17号","d":"2026-07-30","u":"https://rsj.sh.gov.cn/tjypx_17728/20261009/t0035_1444077.html","s":"上海市人社局","c":"补贴","x":"按照“方便、快捷、规范、安全”的原则，对符合条件的单位实行“免申即享”方式发放补助。"},{"t":"上海市人力资源和社会保障局关于本市企业基本养老金计发办法的通知","no":"沪人社规〔2026〕16号","d":"2026-07-24","u":"https://rsj.sh.gov.cn/tshbx_17729/20260813/t0035_1443100.html","s":"上海市人社局","c":"社保","x":"现就本通知实施后办理申领养老金手续人员计发企业基本养老金的有关问题通知如下：。"},{"t":"上海市人力资源和社会保障局关于印发修订后的《关于用人单位依法实施裁减人员报告的通知》的通知","no":"沪人社规〔2026〕14号","d":"2026-07-21","u":"https://rsj.sh.gov.cn/tldgx_17731/20260813/t0035_1443102.html","s":"上海市人社局","c":"劳动合同","x":"市属国有企业及其控股的企业，以及在本市注册设立的注册资金1000万美元（或者相当于1000万美元）以上的外商独资企业。"},{"t":"上海市人力资源和社会保障局关于印发修订后的《关于实施〈上海市劳动合同条例〉若干问题的通知（三）》的通知","no":"沪人社规〔2026〕13号","d":"2026-07-20","u":"https://rsj.sh.gov.cn/tldgx_17731/20260813/t0035_1443091.html","s":"上海市人社局","c":"劳动合同","x":"根据(劳社厅函〔2005〕126号)精神,对不符合国家规定退休条件的本市归侨侨眷职工获准出境定居的,按照国家规定办理终止劳动关系手续时,其一次性离职费可…"},{"t":"上海市人力资源和社会保障局等四部门关于调整户口仍在外地的农婚知青生活困难补助标准的通知","no":"沪人社规〔2026〕15号","d":"2026-07-16","u":"https://rsj.sh.gov.cn/tqt_17733/20261029/t0035_1444429.html","s":"上海市人社局","c":"补贴","x":"为进一步缓解户口仍在外地的农婚知青年老、丧失劳动能力后在当地生活困难的矛盾，经研究并报请市政府同意。"},{"t":"上海市人力资源和社会保障局关于印发《上海市企业工资支付办法》的通知","no":"沪人社规〔2026〕10号","d":"2026-07-15","u":"https://rsj.sh.gov.cn/tgzfl_17732/20260731/t0035_1442850.html","s":"上海市人社局","c":"劳动合同","x":"为维护劳动者通过劳动获得劳动报酬的权利，规范企业的工资支付行为，根据和有关法律、法规的规定，结合本市实际情况，制定本办法。"},{"t":"上海市人力资源和社会保障局关于公布上海市焊接行业协会等职业技能等级认定社会培训评价组织的通知","no":"沪人社职〔2026〕163号","d":"2026-07-09","u":"https://rsj.sh.gov.cn/tjypx_17737/20260819/t0035_1443208.html","s":"上海市人社局","c":"人才与技能","x":"经单位自主申报、材料评估、现场考察、结果公示等程序，现同意上海市焊接行业协会等3家单位新增为社会培训评价组织。"},{"t":"上海市人力资源和社会保障局等六部门关于进一步加强定向培训工作的通知","no":"沪人社规〔2026〕9号","d":"2026-07-06","u":"https://rsj.sh.gov.cn/tjypx_17728/20260717/t0035_1442545.html","s":"上海市人社局","c":"人才与技能","x":"为深入贯彻落实市委、市政府决策部署，推进“技能照亮前程”培训行动，支持劳动者提升技能实。"},{"t":"上海市人力资源和社会保障局 安徽省人力资源和社会保障厅关于开展“追求卓越 向未来”2026年上海（长三角）中青年工程师创新创业大赛决赛参赛人员职称考核认定工作的通知","no":"沪人社专〔2026〕161号","d":"2026-07-02","u":"https://rsj.sh.gov.cn/trsrc_17739/20260714/t0035_1442348.html","s":"上海市人社局","c":"人才与技能","x":"为进一步深化工程技术领域职称制度改革，创新人才评价机制，加强创新型、应用型、技术型工程师队伍建设，建立“项目+人才”的特殊评价方式。"},{"t":"上海市人力资源和社会保障局关于调整本市失业保险金支付标准的通知","no":"沪人社规〔2026〕7号","d":"2026-06-30","u":"https://rsj.sh.gov.cn/tshbx_17729/20260702/t0035_1442080.html","s":"上海市人社局","c":"社保","x":""},{"t":"上海市人力资源和社会保障局关于开展职业技能培训优质品牌培育工作的通知","no":"沪人社职〔2026〕150号","d":"2026-06-29","u":"https://rsj.sh.gov.cn/tjypx_17737/20260703/t0035_1442111.html","s":"上海市人社局","c":"人才与技能","x":"为贯彻落实国务院精神，培育并打响一批职业技能培训优质品牌，统筹各类培训资源，推动职业技能培训规模扩容、质量升级、效果增强。"},{"t":"上海市人力资源和社会保障局关于发布《上海市急需紧缺高技能人才职业（工种）目录（2026年）》的通知","no":"沪人社职〔2026〕149号","d":"2026-06-29","u":"https://rsj.sh.gov.cn/tjypx_17737/20260702/t0035_1442059.html","s":"上海市人社局","c":"人才与技能","x":"为提升劳动者职业技能，培育引进本市急需紧缺高技能人才。"},{"t":"上海市人力资源和社会保障局关于延长《上海市人力资源和社会保障局 上海市财政局关于本市因病或非因公死亡职工遗属等三类人员参加城乡居民养老保险有关问题的通知》有效期的通知","no":"沪人社规〔2026〕6号","d":"2026-06-25","u":"https://rsj.sh.gov.cn/tqt_17733/20260713/t0035_1442345.html","s":"上海市人社局","c":"社保","x":"我局对有效期将届满的行政规范性文件进行了梳理评估。经评估，需继续实施，有效期延长至2031年6月30日。"},{"t":"上海市人力资源和社会保障局关于开展2026年技能大师工作室及首席技师资助申报工作的通知","no":"沪人社职〔2026〕137号","d":"2026-06-15","u":"https://rsj.sh.gov.cn/tjypx_17737/20260618/t0035_1441615.html","s":"上海市人社局","c":"人才与技能","x":"为进一步推进本市高技能人才队伍建设，充分发挥高技能领军人才的引领带动作用，为推动本市经济高质量发展提供坚实的技能人才支撑。"},{"t":"上海市人力资源和社会保障局等四部门关于印发《关于进一步加强“新八级工”职业技能等级制度建设若干措施》的通知","no":"沪人社职〔2026〕135号","d":"2026-06-08","u":"https://rsj.sh.gov.cn/tjypx_17737/20260707/t0035_1442164.html","s":"上海市人社局","c":"人才与技能","x":"为进一步健全完善“新八级工”职业技能等级制度，扎实推进本市技能人才队伍建设高质量发展，在前期工作基础上，研究制定了。"},{"t":"上海市人力资源和社会保障局关于公布上海市退役军人就业创业服务促进会等职业技能等级认定社会培训评价组织的通知","no":"沪人社职〔2026〕130号","d":"2026-06-03","u":"https://rsj.sh.gov.cn/tjypx_17737/20260611/t0035_1441323.html","s":"上海市人社局","c":"人才与技能","x":"经单位自主申报、材料评估、现场考察、结果公示等程序，现同意上海市退役军人就业创业服务促进会新增为社会培训评价组织。"},{"t":"上海市人力资源和社会保障局关于上海市专业技术人才知识更新工程2026年度高级研修项目（急需紧缺人才培养项目）计划的通知","no":"沪人社专〔2026〕129号","d":"2026-06-02","u":"https://rsj.sh.gov.cn/trsrc_17739/20260603/t0035_1441189.html","s":"上海市人社局","c":"人才与技能","x":"为深入贯彻党的二十大和二十届历次全会精神、习近平总书记考察上海重要讲话精神，围绕建设“五个中心”和高水平人才高地。"},{"t":"上海市人力资源和社会保障局关于举办2026年上海市专项职业技能大赛的通知","no":"沪人社职〔2026〕120号","d":"2026-05-22","u":"https://rsj.sh.gov.cn/tjypx_17737/20260615/t0035_1441541.html","s":"上海市人社局","c":"人才与技能","x":"为进一步贯彻落实习近平总书记关于做好技能人才工作、技能竞赛工作重要指示精神，加强技能人才队伍建设，助力本市经济社会高质量发展。"},{"t":"上海服装行业协会等8家社会培训评价机构备案期满评估结果的通知","no":"沪人社职〔2026〕105号","d":"2026-05-08","u":"https://rsj.sh.gov.cn/tjypx_17737/20260610/t0035_1441320.html","s":"上海市人社局","c":"人才与技能","x":"经单位自评、上级主管部门以及考点所在区人社部门同意、专家评估、结果公示等程序。"},{"t":"上海市人力资源和社会保障局关于同意麦德龙商业集团有限公司等单位退出职业技能等级评价机构的批复","no":"沪人社职〔2026〕107号","d":"2026-05-08","u":"https://rsj.sh.gov.cn/tjypx_17737/20260611/t0035_1441322.html","s":"上海市人社局","c":"人才与技能","x":""},{"t":"上海市人力资源和社会保障局关于公布上海市计算技术研究所有限公司等职业技能等级认定社会培训评价组织新增评价项目的通知","no":"沪人社职〔2026〕106号","d":"2026-05-08","u":"https://rsj.sh.gov.cn/tjypx_17737/20260610/t0035_1441321.html","s":"上海市人社局","c":"人才与技能","x":"经单位自主申报、材料评估、现场考察、结果公示等程序。"},{"t":"上海市人力资源和社会保障局关于同意上海飞机试飞工程有限公司备案为本市企业职业技能等级评价机构的通知","no":"沪人社职〔2026〕99号","d":"2026-04-24","u":"https://rsj.sh.gov.cn/tjypx_17737/20260610/t0035_1441318.html","s":"上海市人社局","c":"人才与技能","x":"在单位申报、上级主管部门推荐、专家评估、结果公示的基础上，经研究，同意上海飞机试飞工程有限公司备案为本市企业职业技能等级评价机构。"},{"t":"上海市人力资源和社会保障局关于同意上海建设管理职业技术学院备案为院校职业技能等级评价机构的通知","no":"沪人社职〔2026〕100号","d":"2026-04-24","u":"https://rsj.sh.gov.cn/tjypx_17737/20260610/t0035_1441319.html","s":"上海市人社局","c":"人才与技能","x":"等有关要求，在单位申报、上级主管部门推荐、专家评估、结果公示的基础上，经研究。"},{"t":"上海市人力资源和社会保障局关于公布上海市商用密码行业协会等7家社会培训评价机构备案期满评估结果的通知","no":"沪人社职〔2026〕88号","d":"2026-04-03","u":"https://rsj.sh.gov.cn/tjypx_17737/20260609/t0035_1441317.html","s":"上海市人社局","c":"人才与技能","x":"经单位自评、上级主管部门以及考点所在区人社部门同意、专家评估、结果公示等评估程序。"},{"t":"上海市人力资源和社会保障局关于征集上海市专业技术人才知识更新工程2026年度高级研修项目（急需紧缺人才培养项目）选题的通知","no":"沪人社专〔2026〕82号","d":"2026-03-31","u":"https://rsj.sh.gov.cn/trsrc_17739/20260409/t0035_1439758.html","s":"上海市人社局","c":"人才与技能","x":""},{"t":"上海市人力资源和社会保障局关于印发《技能提升年行动方案》的通知","no":"沪人社职〔2026〕79号","d":"2026-03-30","u":"https://rsj.sh.gov.cn/tjypx_17737/20260402/t0035_1439699.html","s":"上海市人社局","c":"人才与技能","x":"为深入贯彻落实市政府在2026年开展“技能提升年”行动的决策部署，以举办第48届世界技能大赛为引领，推进“技能照亮前程”培训行动。"},{"t":"上海市人力资源和社会保障局关于公布2025年上海市高技能人才培养基地名单的通知","no":"沪人社职〔2026〕78号","d":"2026-03-27","u":"https://rsj.sh.gov.cn/tjypx_17737/20260401/t0035_1439673.html","s":"上海市人社局","c":"人才与技能","x":""},{"t":"上海市人力资源和社会保障局关于做好第48届世界技能大赛中国集训队集中考核上海市组团参赛工作的通知","no":"沪人社职〔2026〕80号","d":"2026-03-27","u":"https://rsj.sh.gov.cn/tjypx_17737/20260401/t0035_1439672.html","s":"上海市人社局","c":"人才与技能","x":""},{"t":"上海市人力资源和社会保障局关于开展2026年度人工智能推介官培训认证工作的通知","no":"沪人社职〔2026〕67号","d":"2026-03-19","u":"https://rsj.sh.gov.cn/tjypx_17737/20260331/t0035_1439666.html","s":"上海市人社局","c":"人才与技能","x":""},{"t":"上海市人力资源和社会保障局关于开展本市2026年企业薪酬调查工作的通知","no":"沪人社综〔2026〕65号","d":"2026-03-17","u":"https://rsj.sh.gov.cn/tgzfl_17741/20260330/t0035_1439633.html","s":"上海市人社局","c":"其他","x":""},{"t":"上海市人力资源和社会保障局关于开展数字技术工程师培育项目第三批培训机构遴选工作的通知","no":"沪人社专〔2026〕55号","d":"2026-03-03","u":"https://rsj.sh.gov.cn/trsrc_17739/20260317/t0035_1439406.html","s":"上海市人社局","c":"人才与技能","x":""},{"t":"上海市人力资源和社会保障局关于同意东方国际（集团）有限公司备案为本市企业职业技能等级评价机构的通知","no":"沪人社职〔2026〕48号","d":"2026-02-10","u":"https://rsj.sh.gov.cn/tjypx_17737/20260213/t0035_1438792.html","s":"上海市人社局","c":"人才与技能","x":""},{"t":"上海市人力资源和社会保障局关于公布复旦大学等职业技能等级认定社会培训评价组织的通知","no":"沪人社职〔2026〕49号","d":"2026-02-10","u":"https://rsj.sh.gov.cn/tjypx_17737/20260213/t0035_1438793.html","s":"上海市人社局","c":"人才与技能","x":""},{"t":"上海市人力资源和社会保障局关于开展2026年社会化职业技能评价机构征集遴选工作的通知","no":"沪人社职〔2026〕46号","d":"2026-02-05","u":"https://rsj.sh.gov.cn/tjypx_17737/20260213/t0035_1438791.html","s":"上海市人社局","c":"人才与技能","x":""},{"t":"上海市人力资源和社会保障局关于公布江南造船（集团）有限责任公司、沪东中华造船（集团）有限公司企业职业技能等级评价机构备案期满评估结果的通知","no":"沪人社职〔2026〕25号","d":"2026-02-03","u":"https://rsj.sh.gov.cn/tjypx_17737/20260213/t0035_1438788.html","s":"上海市人社局","c":"人才与技能","x":""},{"t":"上海市人力资源和社会保障局 上海市财政局关于2026年“元旦、春节”期间对家庭生活困难的失业人员发放一次性补助的通知","no":"沪人社规〔2026〕4号","d":"2026-01-16","u":"https://rsj.sh.gov.cn/tshbx_17729/20260127/t0035_1438246.html","s":"上海市人社局","c":"补贴","x":"为贯彻落实市委、市政府关于保障和改善民生的要求，提高困难群体的民生保障待遇水平。"},{"t":"上海市人力资源和社会保障局等六部门关于印发修订后的《贯彻〈工程建设领域农民工工资保证金规定〉实施办法》的通知","no":"沪人社规〔2026〕5号","d":"2026-01-12","u":"https://rsj.sh.gov.cn/tldgx_17731/20260204/t0035_1438522.html","s":"上海市人社局","c":"劳动合同","x":"为贯彻落实、等有关规定，规范工程建设领域农民工工资保证金管理制度，结合本市工程建设项目管理实际。"},{"t":"上海市人力资源和社会保障局关于发布《上海市职业技能提升补贴目录（2026年）》的通知","no":"沪人社职〔2026〕6号","d":"2026-01-09","u":"https://rsj.sh.gov.cn/tjypx_17737/20260116/t0035_1438001.html","s":"上海市人社局","c":"补贴","x":"为提升劳动者职业技能，加强急需紧缺和高等级技能人才培养，促进高质量充分就业。"},{"t":"上海市人力资源和社会保障局 上海市财政局关于对本市城乡居民养老保险领取养老金人员发放2026年度一次性节日补助费的通知","no":"沪人社规〔2026〕1号","d":"2026-01-09","u":"https://rsj.sh.gov.cn/tshbx_17729/20260422/t0035_1440162.html","s":"上海市人社局","c":"补贴","x":""},{"t":"上海市人力资源和社会保障局 上海市财政局关于印发《上海市工伤保险浮动费率管理办法》的通知","no":"沪人社规〔2026〕3号","d":"2026-01-09","u":"https://rsj.sh.gov.cn/tshbx_17729/20260121/t0035_1438095.html","s":"上海市人社局","c":"社保","x":""},{"t":"上海市人力资源和社会保障局 上海市财政局 国家税务总局上海市税务局关于调整本市工伤保险费率等问题的通知","no":"沪人社规〔2026〕2号","d":"2026-01-09","u":"https://rsj.sh.gov.cn/tshbx_17729/20260121/t0035_1438097.html","s":"上海市人社局","c":"社保","x":"本市工伤保险实行行业基准费率，并根据用人单位工伤保险支缴率和工伤事故发生率等因素实行浮动费率。浮动费率的具体办法另行制定。"},{"t":"上海市人力资源和社会保障局关于印发《上海市职业技能培训机构教师管理办法》的通知","no":"沪人社职〔2026〕8号","d":"2026-01-08","u":"https://rsj.sh.gov.cn/tjypx_17737/20260114/t0035_1437974.html","s":"上海市人社局","c":"人才与技能","x":""},{"t":"上海市人力资源和社会保障局关于公布上海市首批“一试双证”职业技能比照认定目录的通知","no":"沪人社职〔2026〕5号","d":"2026-01-08","u":"https://rsj.sh.gov.cn/tjypx_17737/20260115/t0035_1437999.html","s":"上海市人社局","c":"人才与技能","x":""},{"t":"上海市人力资源和社会保障局关于公布2025年技能大师工作室及首席技师资助名单的通知","no":"沪人社职〔2025〕375号","d":"2025-12-31","u":"https://rsj.sh.gov.cn/tjypx_17737/20260105/t0035_1437782.html","s":"上海市人社局","c":"人才与技能","x":""},{"t":"上海市人力资源和社会保障局关于同意中国东方航空股份有限公司等12家单位为本市企业职业技能等级评价机构的通知","no":"沪人社职〔2025〕371号","d":"2025-12-30","u":"https://rsj.sh.gov.cn/tjypx_17737/20260104/t0035_1437759.html","s":"上海市人社局","c":"人才与技能","x":""},{"t":"上海市人力资源和社会保障局 上海市财政局关于加强创业培训提升全过程创业能力的实施意见","no":"沪人社规〔2025〕30号","d":"2025-12-30","u":"https://rsj.sh.gov.cn/tjypx_17728/20260116/t0035_1438023.html","s":"上海市人社局","c":"人才与技能","x":"为提升劳动者就业创业能力，促进劳动者成功创业并通过创业带动就业，制定如下实施意见：。"},{"t":"上海市人力资源和社会保障局 上海市财政局 国家税务总局上海市税务局关于印发《上海市新就业形态人员职业伤害保障业务经办和征收管理规程》的通知","no":"沪人社福〔2025〕373号","d":"2025-12-29","u":"https://rsj.sh.gov.cn/tgzfl_17741/20260123/t0035_1438174.html","s":"上海市人社局","c":"人才与技能","x":""},{"t":"上海市人力资源和社会保障局关于开展2026年上海市社会化职业技能评价有关事项的通知","no":"沪人社职〔2025〕369号","d":"2025-12-26","u":"https://rsj.sh.gov.cn/tjypx_17737/20260104/t0035_1437757.html","s":"上海市人社局","c":"人才与技能","x":""},{"t":"上海市人力资源和社会保障局等四部门关于印发规范农婚知青生活困难补助工作的通知","no":"沪人社规〔2025〕32号","d":"2025-12-24","u":"https://rsj.sh.gov.cn/tqt_17733/20260115/t0035_1438002.html","s":"上海市人社局","c":"补贴","x":""},{"t":"上海市人力资源和社会保障局等四部门关于做好本市城乡居民基本养老保险制度与城乡居民最低生活保障、特困人员救助供养及优抚制度衔接工作的通知","no":"沪人社规〔2025〕27号","d":"2025-12-23","u":"https://rsj.sh.gov.cn/tshbx_17729/20260116/t0035_1438021.html","s":"上海市人社局","c":"社保","x":""},{"t":"上海市人力资源和社会保障局关于公布中国铁路上海局集团有限公司等47家企业职业技能等级评价机构备案期满评估结果的通知","no":"沪人社职〔2025〕363号","d":"2025-12-22","u":"https://rsj.sh.gov.cn/tjypx_17737/20260104/t0035_1437756.html","s":"上海市人社局","c":"人才与技能","x":""},{"t":"上海市人力资源和社会保障局等8部门关于广泛开展稳岗留工送温暖活动暨2026年春季促进就业专项行动的通知","no":"沪人社就〔2025〕364号","d":"2025-12-17","u":"https://rsj.sh.gov.cn/tjypx_17737/20260104/t0035_1437758.html","s":"上海市人社局","c":"人才与技能","x":""},{"t":"上海市人力资源和社会保障局 上海市财政局 国家税务总局上海市税务局关于调整本市工程建设项目参加工伤保险费率的通知","no":"沪人社规〔2025〕28号","d":"2025-12-03","u":"https://rsj.sh.gov.cn/tshbx_17729/20251222/t0035_1437542.html","s":"上海市人社局","c":"社保","x":""},{"t":"上海市人力资源和社会保障局等十部门关于做好本市工程建设项目参加工伤保险工作的通知","no":"沪人社规〔2025〕29号","d":"2025-12-02","u":"https://rsj.sh.gov.cn/tshbx_17729/20251222/t0035_1437544.html","s":"上海市人社局","c":"社保","x":""},{"t":"上海市人力资源和社会保障局关于在本市职业技能培训机构中开展网络化定期核检工作的通知","no":"沪人社职〔2025〕339号","d":"2025-11-28","u":"https://rsj.sh.gov.cn/tjypx_17737/20251217/t0035_1437477.html","s":"上海市人社局","c":"人才与技能","x":""},{"t":"上海市人力资源和社会保障局关于公布上海市首批国（境）外职业技能比照认定目录的通知","no":"沪人社职〔2025〕338号","d":"2025-11-28","u":"https://rsj.sh.gov.cn/tjypx_17737/20251202/t0035_1437209.html","s":"上海市人社局","c":"人才与技能","x":""},{"t":"上海市人力资源和社会保障局关于同意咪咕视讯科技有限公司等单位退出职业技能等级评价机构的批复","no":"沪人社职〔2025〕334号","d":"2025-11-27","u":"https://rsj.sh.gov.cn/tjypx_17737/20251202/t0035_1437208.html","s":"上海市人社局","c":"人才与技能","x":""},{"t":"上海市人力资源和社会保障局关于做好区属企业职业技能等级评价机构备案管理的通知","no":"沪人社职〔2025〕325号","d":"2025-11-24","u":"https://rsj.sh.gov.cn/tjypx_17737/20251202/t0035_1437200.html","s":"上海市人社局","c":"人才与技能","x":""},{"t":"上海市人力资源和社会保障局关于公布上海市护理学会等职业技能等级认定社会培训评价组织的通知","no":"沪人社职〔2025〕324号","d":"2025-11-20","u":"https://rsj.sh.gov.cn/tjypx_17737/20251202/t0035_1437199.html","s":"上海市人社局","c":"人才与技能","x":""},{"t":"上海市人力资源和社会保障局关于延长《关于进一步加强本市重点产业领域技能人才培养试点工作的通知》有效期的通知","no":"沪人社规〔2025〕26号","d":"2025-11-13","u":"https://rsj.sh.gov.cn/tjypx_17728/20251217/t0035_1437482.html","s":"上海市人社局","c":"人才与技能","x":""},{"t":"上海市人力资源和社会保障局 上海市财政局 上海市医疗保障局关于进一步做好本市被征地人员就业和社会保障工作的通知","no":"沪人社规〔2025〕24号","d":"2025-11-05","u":"https://rsj.sh.gov.cn/tshbx_17729/20260123/t0035_1438176.html","s":"上海市人社局","c":"社保","x":""},{"t":"上海市人力资源和社会保障局关于延长《关于本市企业基本养老金计发办法有关问题的通知》有效期的通知","no":"沪人社规〔2025〕23号","d":"2025-11-04","u":"https://rsj.sh.gov.cn/tqt_17733/20260127/t0035_1438245.html","s":"上海市人社局","c":"社保","x":""},{"t":"上海市人力资源和社会保障局关于公布上海宝冶集团有限公司、中国二十冶集团有限公司企业职业技能等级评价机构备案期满评估结果的通知","no":"沪人社职〔2025〕296号","d":"2025-10-29","u":"https://rsj.sh.gov.cn/tjypx_17737/20251202/t0035_1437195.html","s":"上海市人社局","c":"人才与技能","x":""},{"t":"上海市人力资源和社会保障局关于开展2025年本市高技能人才培养基地申报工作的通知","no":"沪人社职〔2025〕270号","d":"2025-10-11","u":"https://rsj.sh.gov.cn/tjypx_17737/20251013/t0035_1436085.html","s":"上海市人社局","c":"人才与技能","x":""},{"t":"上海市人力资源和社会保障局等四部门关于印发《关于本市超过法定退休年龄就业人员和实习生参加工伤保险的实施意见》的通知","no":"沪人社规〔2025〕22号","d":"2025-10-09","u":"https://rsj.sh.gov.cn/tshbx_17729/20251027/t0035_1436399.html","s":"上海市人社局","c":"社保","x":""},{"t":"上海市人力资源和社会保障局关于调整本市工伤人员伤残津贴和生活护理费标准的通知","no":"沪人社规〔2025〕20号","d":"2025-09-22","u":"https://rsj.sh.gov.cn/tshbx_17729/20250923/t0035_1435736.html","s":"上海市人社局","c":"补贴","x":""},{"t":"上海市人力资源和社会保障局关于公布上海勘测设计研究院有限公司企业职业技能等级评价机构备案期满评估结果的通知","no":"沪人社职〔2025〕262号","d":"2025-09-18","u":"https://rsj.sh.gov.cn/tjypx_17737/20250928/t0035_1435837.html","s":"上海市人社局","c":"人才与技能","x":""},{"t":"上海市人力资源和社会保障局关于公布上海医药行业协会等职业技能等级认定社会培训评价组织的通知","no":"沪人社职〔2025〕253号","d":"2025-09-11","u":"https://rsj.sh.gov.cn/tjypx_17737/20250917/t0035_1435653.html","s":"上海市人社局","c":"人才与技能","x":""},{"t":"上海市人力资源和社会保障局 上海市卫生健康委员会 上海市医疗保障局关于印发《上海市劳动能力鉴定管理办法》的通知","no":"沪人社规〔2025〕18号","d":"2025-08-26","u":"https://rsj.sh.gov.cn/tshbx_17729/20250901/t0035_1435262.html","s":"上海市人社局","c":"劳动合同","x":""},{"t":"上海市人力资源和社会保障局等四部门关于废止《关于进一步做好本市农民就业创业工作的通知》的通知","no":"沪人社规〔2025〕19号","d":"2025-08-25","u":"https://rsj.sh.gov.cn/tqt_17733/20250922/t0035_1435723.html","s":"上海市人社局","c":"人才与技能","x":""},{"t":"上海市人力资源和社会保障局关于公布上海东海职业技术学院等职业技能等级认定社会培训评价组织的通知","no":"沪人社职〔2025〕229号","d":"2025-08-25","u":"https://rsj.sh.gov.cn/tjypx_17737/20250904/t0035_1435359.html","s":"上海市人社局","c":"人才与技能","x":""},{"t":"上海市人力资源和社会保障局关于同意上海船厂船舶有限公司等单位退出职业技能等级评价机构的批复","no":"沪人社职〔2025〕223号","d":"2025-08-19","u":"https://rsj.sh.gov.cn/tjypx_17737/20250904/t0035_1435358.html","s":"上海市人社局","c":"人才与技能","x":""},{"t":"上海市人力资源和社会保障局关于开展境外职业资格证书清单项目持证人员第三批职称考核认定的通知","no":"沪人社专〔2025〕219号","d":"2025-08-18","u":"https://rsj.sh.gov.cn/trsrc_17739/20250820/t0035_1434981.html","s":"上海市人社局","c":"人才与技能","x":""},{"t":"上海市人力资源和社会保障局等九部门关于扩大新就业形态人员职业伤害保障试点工作的通知","no":"沪人社规〔2025〕17号","d":"2025-07-29","u":"https://rsj.sh.gov.cn/tjypx_17728/20250819/t0035_1434960.html","s":"上海市人社局","c":"人才与技能","x":""},{"t":"上海市人力资源和社会保障局关于开展2021—2023年度本市职业技能培训机构办学质量和诚信等级评定工作的通知","no":"沪人社职〔2024〕239号","d":"2025-07-25","u":"https://rsj.sh.gov.cn/tjypx_17737/20250403/t0035_1431702.html","s":"上海市人社局","c":"人才与技能","x":""},{"t":"上海市人力资源和社会保障局关于延长《关于进一步做好本市失业登记、失业保险有关工作的通知》有效期的通知","no":"沪人社规〔2025〕16号","d":"2025-07-25","u":"https://rsj.sh.gov.cn/tqt_17733/20251013/t0035_1436089.html","s":"上海市人社局","c":"社保","x":""},{"t":"上海市人力资源和社会保障局等5部门关于实施女职工产假及生育假期间用人单位社会保险补贴有关事项的通知","no":"沪人社规〔2025〕14号","d":"2025-07-21","u":"https://rsj.sh.gov.cn/tjypx_17728/20250808/t0035_1434756.html","s":"上海市人社局","c":"补贴","x":""},{"t":"上海市人力资源和社会保障局关于2025年调整本市征地养老人员生活费标准的通知","no":"沪人社规〔2025〕13号","d":"2025-07-21","u":"https://rsj.sh.gov.cn/tshbx_17729/20250801/t0035_1434567.html","s":"上海市人社局","c":"社保","x":""},{"t":"上海市人力资源和社会保障局 上海市财政局关于2025年调整本市城乡居民养老保险领取养老金人员养老金的通知","no":"沪人社规〔2025〕12号","d":"2025-07-21","u":"https://rsj.sh.gov.cn/tshbx_17729/20250801/t0035_1434563.html","s":"上海市人社局","c":"社保","x":""},{"t":"上海市人力资源和社会保障局 上海市财政局关于2025年调整本市退休人员基本养老金的通知","no":"沪人社规〔2025〕11号","d":"2025-07-18","u":"https://rsj.sh.gov.cn/tshbx_17729/20250801/t0035_1434560.html","s":"上海市人社局","c":"社保","x":""},{"t":"上海市人力资源和社会保障局等四部门关于调整户口仍在外地的农婚知青生活困难补助标准的通知","no":"沪人社规〔2025〕15号","d":"2025-07-14","u":"https://rsj.sh.gov.cn/tqt_17733/20251024/t0035_1436354.html","s":"上海市人社局","c":"补贴","x":""},{"t":"上海市人力资源和社会保障局关于调整本市最低工资标准的通知","no":"沪人社规〔2025〕10号","d":"2025-07-11","u":"https://rsj.sh.gov.cn/tgzfl_17732/20250714/t0035_1434097.html","s":"上海市人社局","c":"劳动合同","x":""},{"t":"上海市人力资源和社会保障局关于开展2025年高校毕业生等青年就业服务攻坚行动的通知","no":"沪人社就〔2025〕185号","d":"2025-07-10","u":"https://rsj.sh.gov.cn/tjypx_17737/20250718/t0035_1434210.html","s":"上海市人社局","c":"人才与技能","x":""},{"t":"上海市人力资源和社会保障局 上海市教育委员会关于印发《上海市中小学教师职称评审办法》的通知","no":"沪人社专〔2025〕170号","d":"2025-07-08","u":"https://rsj.sh.gov.cn/trsrc_17739/20250710/t0035_1434021.html","s":"上海市人社局","c":"人才与技能","x":""},{"t":"上海市人力资源和社会保障局 上海市司法局关于印发《上海市公共法律服务专业人员司法鉴定人职称评审办法》的通知","no":"沪人社专〔2025〕168号","d":"2025-07-08","u":"https://rsj.sh.gov.cn/trsrc_17739/20250805/t0035_1434692.html","s":"上海市人社局","c":"人才与技能","x":""},{"t":"上海市人力资源和社会保障局关于开展2025年度上海市正高级工程师职称评审工作的通知","no":"沪人社专〔2025〕173号","d":"2025-07-03","u":"https://rsj.sh.gov.cn/trsrc_17739/20250707/t0035_1433871.html","s":"上海市人社局","c":"人才与技能","x":""},{"t":"上海市人力资源和社会保障局关于印发《上海市技能人才评价违纪违规行为处理实施细则(试行)》的通知","no":"沪人社职〔2025〕176号","d":"2025-07-03","u":"https://rsj.sh.gov.cn/trsrc_17739/20250707/t0035_1433872.html","s":"上海市人社局","c":"人才与技能","x":""},{"t":"上海市人力资源和社会保障局关于公布上海材料研究所有限公司等职业技能等级认定社会培训评价组织的通知","no":"沪人社职〔2025〕177号","d":"2025-07-03","u":"https://rsj.sh.gov.cn/tjypx_17737/20250707/t0035_1433873.html","s":"上海市人社局","c":"人才与技能","x":""},{"t":"上海市人力资源和社会保障局 上海市教育委员会 上海社会科学院关于印发《上海市教育事业管理研究人员职称评审办法》的通知","no":"沪人社专〔2025〕169号","d":"2025-07-03","u":"https://rsj.sh.gov.cn/trsrc_17739/20260615/t0035_1441537.html","s":"上海市人社局","c":"人才与技能","x":""},{"t":"上海市人力资源和社会保障局关于调整本市失业保险金支付标准的通知","no":"沪人社规〔2025〕9号","d":"2025-06-30","u":"https://rsj.sh.gov.cn/tshbx_17729/20250704/t0035_1433841.html","s":"上海市人社局","c":"社保","x":""},{"t":"上海市人力资源和社会保障局 上海市财政局关于印发《本市高技能人才培养基地建设经费资助实施办法》的通知","no":"沪人社规〔2025〕8号","d":"2025-06-30","u":"https://rsj.sh.gov.cn/trsrc_17730/20250702/t0035_1433717.html","s":"上海市人社局","c":"人才与技能","x":""},{"t":"上海市人力资源和社会保障局关于上海市专业技术人才知识更新工程2025年度高级研修项目（急需紧缺人才培养项目）计划的通知","no":"沪人社专〔2025〕161号","d":"2025-06-10","u":"https://rsj.sh.gov.cn/trsrc_17739/20250612/t0035_1433110.html","s":"上海市人社局","c":"人才与技能","x":""},{"t":"上海市人力资源和社会保障局关于公布上海宝冶集团有限公司等职业技能等级认定社会培训评价组织的通知","no":"沪人社职〔2025〕154号","d":"2025-06-03","u":"https://rsj.sh.gov.cn/tjypx_17737/20250707/t0035_1433870.html","s":"上海市人社局","c":"人才与技能","x":""},{"t":"上海市人力资源和社会保障局关于开展2025年技能大师工作室及首席技师资助申报工作的通知","no":"沪人社职〔2025〕133号","d":"2025-05-08","u":"https://rsj.sh.gov.cn/tjypx_17737/20250519/t0035_1432558.html","s":"上海市人社局","c":"人才与技能","x":""},{"t":"上海市人力资源和社会保障局关于同意上海仪电（集团）有限公司为本市企业职业技能等级评价机构的通知","no":"沪人社职〔2025〕131号","d":"2025-05-08","u":"https://rsj.sh.gov.cn/tjypx_17737/20250515/t0035_1432487.html","s":"上海市人社局","c":"人才与技能","x":""},{"t":"上海市人力资源和社会保障局关于印发《上海市人力资源服务机构专业人员职称评审办法》的通知","no":"沪人社专〔2025〕134号","d":"2025-05-08","u":"https://rsj.sh.gov.cn/trsrc_17739/20250514/t0035_1432463.html","s":"上海市人社局","c":"人才与技能","x":""},{"t":"上海市人力资源和社会保障局关于公布上海华申交通人才服务促进中心社会培训评价组织备案期满评估结果的通知","no":"沪人社职〔2025〕132号","d":"2025-05-08","u":"https://rsj.sh.gov.cn/tjypx_17737/20250515/t0035_1432488.html","s":"上海市人社局","c":"人才与技能","x":""},{"t":"上海市人力资源和社会保障局等四部门关于印发《上海市直播经济技能人才培养工作方案（2025-2027年）》的通知","no":"沪人社职〔2025〕142号","d":"2025-05-07","u":"https://rsj.sh.gov.cn/tjypx_17737/20250519/t0035_1432559.html","s":"上海市人社局","c":"人才与技能","x":""},{"t":"上海市人力资源和社会保障局关于开展本市国家级高技能人才培训基地建设项目验收工作的通知","no":"沪人社职〔2025〕127号","d":"2025-05-06","u":"https://rsj.sh.gov.cn/tjypx_17737/20250508/t0035_1432363.html","s":"上海市人社局","c":"人才与技能","x":""},{"t":"上海市人力资源和社会保障局关于开展2025年度本市国家级高技能人才培训基地建设项目申报推荐工作的通知","no":"沪人社职〔2025〕126号","d":"2025-05-06","u":"https://rsj.sh.gov.cn/tjypx_17737/20250508/t0035_1432361.html","s":"上海市人社局","c":"人才与技能","x":""},{"t":"上海市人力资源和社会保障局关于进一步做好本市企业职业技能等级评价机构备案期满评估工作的通知","no":"沪人社职〔2025〕120号","d":"2025-04-28","u":"https://rsj.sh.gov.cn/tjypx_17737/20250515/t0035_1432486.html","s":"上海市人社局","c":"人才与技能","x":""},{"t":"上海市人力资源和社会保障局关于公布上海健康医学院等职业技能等级认定社会培训评价组织的通知","no":"沪人社职〔2025〕115号","d":"2025-04-23","u":"https://rsj.sh.gov.cn/tjypx_17737/20250424/t0035_1432105.html","s":"上海市人社局","c":"人才与技能","x":""},{"t":"上海市人力资源和社会保障局关于举办医疗机器人创新与临床应用高级研修项目的通知","no":"沪人社专〔2025〕110号","d":"2025-04-22","u":"https://rsj.sh.gov.cn/trsrc_17739/20250427/t0035_1432156.html","s":"上海市人社局","c":"社保","x":""},{"t":"上海市人力资源和社会保障局关于举办AI+BT赋能药品制造数字化产业人才培养高级研修项目的通知","no":"沪人社专〔2025〕109号","d":"2025-04-22","u":"https://rsj.sh.gov.cn/trsrc_17739/20250427/t0035_1432153.html","s":"上海市人社局","c":"人才与技能","x":""},{"t":"上海市人力资源和社会保障局 上海市财政局关于进一步完善职业技能提升补贴政策的通知","no":"沪人社规〔2025〕7号","d":"2025-04-21","u":"https://rsj.sh.gov.cn/tjypx_17728/20250425/t0035_1432106.html","s":"上海市人社局","c":"补贴","x":""},{"t":"上海市人力资源和社会保障局 上海市财政局 上海市教育委员会关于合并实施本市重点群体一次性吸纳就业补贴和一次性扩岗补助政策的通知","no":"沪人社规〔2025〕6号","d":"2025-04-21","u":"https://rsj.sh.gov.cn/tjypx_17728/20250509/t0035_1432370.html","s":"上海市人社局","c":"补贴","x":""},{"t":"上海市人力资源和社会保障局关于印发《上海市深化职业技能评价制度改革试点的若干措施》的通知","no":"沪人社职〔2025〕100号","d":"2025-04-16","u":"https://rsj.sh.gov.cn/tjypx_17737/20250421/t0035_1432022.html","s":"上海市人社局","c":"人才与技能","x":""},{"t":"上海市人力资源和社会保障局关于印发《2025年上海市为民办实事项目“新增培养5万人次高级工及以上技能人才”实施方案》的通知","no":"沪人社职〔2025〕87号","d":"2025-03-28","u":"https://rsj.sh.gov.cn/tjypx_17737/20250409/t0035_1431756.html","s":"上海市人社局","c":"人才与技能","x":""},{"t":"上海市人力资源和社会保障局关于开展本市2025年企业薪酬调查工作的通知","no":"沪人社综〔2025〕78号","d":"2025-03-24","u":"https://rsj.sh.gov.cn/tgzfl_17741/20250402/t0035_1431676.html","s":"上海市人社局","c":"其他","x":""},{"t":"上海市人力资源和社会保障局关于印发《聚焦提升企业和劳动者感受持续优化人社领域营商环境行动方案》的通知","no":"沪人社法〔2025〕83号","d":"2025-03-24","u":"https://rsj.sh.gov.cn/tqt_17742/20250407/t0035_1431718.html","s":"上海市人社局","c":"劳动合同","x":""},{"t":"上海市人力资源和社会保障局关于征集上海市专业技术人才知识更新工程2025年度高级研修项目（急需紧缺人才培养项目）选题的通知","no":"沪人社专〔2025〕79号","d":"2025-03-21","u":"https://rsj.sh.gov.cn/trsrc_17739/20250324/t0035_1431413.html","s":"上海市人社局","c":"人才与技能","x":""},{"t":"上海市人力资源和社会保障局关于开展2025年社会化职业技能等级认定征集遴选工作的通知","no":"沪人社职〔2025〕76号","d":"2025-03-20","u":"https://rsj.sh.gov.cn/tjypx_17737/20250324/t0035_1431409.html","s":"上海市人社局","c":"人才与技能","x":""},{"t":"上海市人力资源和社会保障局关于公布上海市多媒体行业协会等职业技能等级认定社会培训评价组织的通知","no":"沪人社职〔2025〕67号","d":"2025-03-12","u":"https://rsj.sh.gov.cn/tjypx_17737/20250324/t0035_1431408.html","s":"上海市人社局","c":"人才与技能","x":""},{"t":"上海市人力资源和社会保障局关于公布上海区块链技术协会等职业技能等级认定社会培训评价组织的通知","no":"沪人社职〔2025〕53号","d":"2025-02-13","u":"https://rsj.sh.gov.cn/tjypx_17737/20250324/t0035_1431407.html","s":"上海市人社局","c":"人才与技能","x":""},{"t":"上海市人力资源和社会保障局关于报送劳务派遣单位2024年度经营情况报告的通知","no":"沪人社关〔2025〕23号","d":"2025-01-22","u":"https://rsj.sh.gov.cn/tldgx_17740/20250205/t0035_1430290.html","s":"上海市人社局","c":"劳动合同","x":""},{"t":"上海市人力资源和社会保障局 上海市财政局关于2025年“元旦、春节”期间对家庭生活困难的失业人员发放一次性补助的通知","no":"沪人社规〔2025〕3号","d":"2025-01-13","u":"https://rsj.sh.gov.cn/tshbx_17729/20250120/t0035_1430055.html","s":"上海市人社局","c":"补贴","x":""},{"t":"上海市人力资源和社会保障局 上海市财政局 国家税务总局上海市税务局关于大龄领取失业保险金人员参加企业职工基本养老保险有关问题的通知","no":"沪人社规〔2025〕1号","d":"2025-01-05","u":"https://rsj.sh.gov.cn/tshbx_17729/20250113/t0035_1429890.html","s":"上海市人社局","c":"社保","x":""},{"t":"上海市人力资源和社会保障局 上海市财政局关于对本市城乡居民养老保险领取养老金人员发放2025年度一次性节日补助费的通知","no":"沪人社规〔2025〕2号","d":"2025-01-03","u":"https://rsj.sh.gov.cn/tshbx_17729/20250220/t0035_1430645.html","s":"上海市人社局","c":"补贴","x":""},{"t":"上海市人力资源和社会保障局 上海市财政局 国家税务总局上海市税务局关于本市失业保险和工伤保险费率有关事项的通知","no":"沪人社规〔2024〕25号","d":"2024-12-31","u":"https://rsj.sh.gov.cn/tshbx_17729/20250103/t0035_1429759.html","s":"上海市人社局","c":"社保","x":""},{"t":"上海市人力资源和社会保障局关于公布上海市物流协会社会培训评价机构备案期满评估结果的通知","no":"沪人社职〔2024〕457号","d":"2024-12-30","u":"https://rsj.sh.gov.cn/tjypx_17737/20250102/t0035_1429706.html","s":"上海市人社局","c":"人才与技能","x":""},{"t":"上海市人力资源和社会保障局关于公布2024年技能大师工作室及首席技师资助名单的通知","no":"沪人社职〔2024〕460号","d":"2024-12-30","u":"https://rsj.sh.gov.cn/tjypx_17737/20250107/t0035_1429762.html","s":"上海市人社局","c":"人才与技能","x":""},{"t":"上海市人力资源和社会保障局关于2025年上海市社会化职业技能评价有关事项的通知","no":"沪人社职〔2024〕458号","d":"2024-12-30","u":"https://rsj.sh.gov.cn/tjypx_17737/20250102/t0035_1429707.html","s":"上海市人社局","c":"人才与技能","x":""},{"t":"上海市人力资源和社会保障局关于认定上海市2021—2023年度职业技能培训机构（项目）办学质量和诚信等级A级单位的通知","no":"沪人社职〔2024〕453号","d":"2024-12-27","u":"https://rsj.sh.gov.cn/tjypx_17737/20250403/t0035_1431687.html","s":"上海市人社局","c":"人才与技能","x":""},{"t":"上海市人力资源和社会保障局关于开展政务服务办事员等社会培训评价组织征集遴选工作的通知","no":"沪人社职〔2024〕447号","d":"2024-12-24","u":"https://rsj.sh.gov.cn/tjypx_17737/20241225/t0035_1429597.html","s":"上海市人社局","c":"人才与技能","x":""},{"t":"上海市人力资源和社会保障局关于公布上海市长宁区业余大学（上海市长宁区社区学院）社会培训评价机构备案期满评估结果的通知","no":"沪人社职〔2024〕446号","d":"2024-12-24","u":"https://rsj.sh.gov.cn/tjypx_17737/20241225/t0035_1429596.html","s":"上海市人社局","c":"人才与技能","x":""},{"t":"上海市人力资源和社会保障局关于宣布废止《关于本市企业各类人才柔性延迟办理申领基本养老金手续的试行意见》的通知","no":"沪人社规〔2024〕24号","d":"2024-12-20","u":"https://rsj.sh.gov.cn/tshbx_17729/20250121/t0035_1430081.html","s":"上海市人社局","c":"社保","x":""},{"t":"上海市人力资源和社会保障局关于公布中冶宝钢技术服务有限公司企业职业技能等级评价机构备案期满评估结果的通知","no":"沪人社职〔2024〕444号","d":"2024-12-18","u":"https://rsj.sh.gov.cn/tjypx_17737/20241225/t0035_1429595.html","s":"上海市人社局","c":"人才与技能","x":""},{"t":"上海市人力资源和社会保障局关于同意中化东方上海石化储运有限公司成为本市企业职业技能等级评价机构的通知","no":"沪人社职〔2024〕422号","d":"2024-12-11","u":"https://rsj.sh.gov.cn/tjypx_17737/20241213/t0035_1429446.html","s":"上海市人社局","c":"人才与技能","x":""},{"t":"上海市人力资源和社会保障局关于公布上海市数字内容产业促进中心等2家社会培训评价机构备案期满评估结果的通知","no":"沪人社职〔2024〕403号","d":"2024-12-03","u":"https://rsj.sh.gov.cn/tjypx_17737/20241213/t0035_1429443.html","s":"上海市人社局","c":"人才与技能","x":""},{"t":"上海市人力资源和社会保障局关于公布上海市养老服务和老龄产业协会等6家社会培训评价机构新增社会化评价项目的通知","no":"沪人社职〔2024〕404号","d":"2024-12-03","u":"https://rsj.sh.gov.cn/tjypx_17737/20241213/t0035_1429445.html","s":"上海市人社局","c":"社保","x":""},{"t":"上海市人力资源和社会保障局等四部门关于印发《上海市工伤保险辅助器具配置管理实施办法》的通知","no":"沪人社规〔2024〕23号","d":"2024-11-30","u":"https://rsj.sh.gov.cn/tshbx_17729/20241220/t0035_1429542.html","s":"上海市人社局","c":"社保","x":""},{"t":"上海市人力资源和社会保障局关于做好《技能人才评价质量督导指标体系》落实工作的通知","no":"沪人社职〔2024〕400号","d":"2024-11-28","u":"https://rsj.sh.gov.cn/tjypx_17737/20241202/t0035_1429178.html","s":"上海市人社局","c":"人才与技能","x":""},{"t":"上海市人力资源和社会保障局关于公布宝山钢铁股份有限公司等16家企业职业技能等级评价机构备案期满评估结果的通知","no":"沪人社职〔2024〕384号","d":"2024-11-21","u":"https://rsj.sh.gov.cn/tjypx_17737/20241202/t0035_1429168.html","s":"上海市人社局","c":"人才与技能","x":""},{"t":"上海市人力资源和社会保障局关于公布上海电气控股集团有限公司等14家社会培训评价机构备案期满评估结果的通知","no":"沪人社职〔2024〕385号","d":"2024-11-21","u":"https://rsj.sh.gov.cn/tjypx_17737/20241202/t0035_1429169.html","s":"上海市人社局","c":"人才与技能","x":""},{"t":"上海市人力资源和社会保障局关于公布“追求卓越 向未来”上海市第二届中青年工程师创新创业大赛决赛参赛人员职称考核认定结果的通知","no":"沪人社专〔2024〕383号","d":"2024-11-20","u":"https://rsj.sh.gov.cn/trsrc_17739/20241206/t0035_1429323.html","s":"上海市人社局","c":"人才与技能","x":""},{"t":"关于上海市养老服务和老龄产业协会继续承接上海市职业技能等级认定社会培训评价组织等资质的复函","no":"沪人社职〔2024〕370号","d":"2024-11-13","u":"https://rsj.sh.gov.cn/tjypx_17737/20241202/t0035_1429166.html","s":"上海市人社局","c":"社保","x":""},{"t":"上海市人力资源和社会保障局等七部门关于进一步加强本市重点产业领域技能人才培养试点工作的通知","no":"沪人社规〔2024〕20号","d":"2024-11-13","u":"https://rsj.sh.gov.cn/tjypx_17728/20241204/t0035_1429208.html","s":"上海市人社局","c":"人才与技能","x":""},{"t":"上海市人力资源和社会保障局关于印发《上海市加快数字技术技能人才培育支撑数字经济发展实施方案（2024-2026年）》的通知","no":"沪人社专〔2024〕364号","d":"2024-11-12","u":"https://rsj.sh.gov.cn/trsrc_17739/20241206/t0035_1429308.html","s":"上海市人社局","c":"人才与技能","x":""},{"t":"上海市人力资源和社会保障局关于印发修订后的《关于进一步发挥欠薪保障金垫付效能的处理意见》的通知","no":"沪人社规〔2024〕21号","d":"2024-11-01","u":"https://rsj.sh.gov.cn/tldgx_17731/20250205/t0035_1430288.html","s":"上海市人社局","c":"其他","x":""},{"t":"上海市人力资源和社会保障局关于印发《上海市职业技能培训机构设置标准》的通知","no":"沪人社规〔2024〕19号","d":"2024-10-23","u":"https://rsj.sh.gov.cn/tjypx_17728/20241031/t0035_1428580.html","s":"上海市人社局","c":"人才与技能","x":""},{"t":"上海市人力资源和社会保障局关于公布上海船厂船舶有限公司等职业技能等级认定社会培训评价组织的通知","no":"沪人社职〔2024〕345号","d":"2024-10-22","u":"https://rsj.sh.gov.cn/tjypx_17737/20241023/t0035_1428394.html","s":"上海市人社局","c":"人才与技能","x":""},{"t":"上海市人力资源和社会保障局关于同意上海市测绘地理信息产业协会等三家单位为本市企业职业技能等级评价机构的通知","no":"沪人社职〔2024〕340号","d":"2024-10-16","u":"https://rsj.sh.gov.cn/tjypx_17737/20241022/t0035_1428322.html","s":"上海市人社局","c":"人才与技能","x":""},{"t":"上海市人力资源和社会保障局关于公布上海市热处理行业协会等16家企业职业技能等级评价机构备案期满评估结果的通知","no":"沪人社职〔2024〕341号","d":"2024-10-16","u":"https://rsj.sh.gov.cn/tjypx_17737/20241022/t0035_1428323.html","s":"上海市人社局","c":"人才与技能","x":""},{"t":"上海市人力资源和社会保障局等四部门关于延长《关于进一步做好本市农民就业创业工作的通知》有效期的通知","no":"沪人社规〔2024〕22号","d":"2024-09-30","u":"https://rsj.sh.gov.cn/tjypx_17728/20250121/t0035_1430080.html","s":"上海市人社局","c":"人才与技能","x":""},{"t":"上海市人力资源和社会保障局关于开展“追求卓越 向未来”上海市第二届中青年工程师创新创业大赛决赛参赛人员职称考核认定工作的通知","no":"沪人社专〔2024〕325号","d":"2024-09-30","u":"https://rsj.sh.gov.cn/trsrc_17739/20241008/t0035_1428042.html","s":"上海市人社局","c":"人才与技能","x":""},{"t":"上海市人力资源和社会保障局 上海市教育委员会 上海市财政局关于落实2024年度一次性扩岗补助政策有关工作的通知","no":"沪人社规〔2024〕18号","d":"2024-09-30","u":"https://rsj.sh.gov.cn/tjypx_17728/20241014/t0035_1428141.html","s":"上海市人社局","c":"补贴","x":""},{"t":"上海市人力资源和社会保障局关于2024年社会化职业技能等级认定职业（工种）征集工作的通知","no":"沪人社职〔2024〕319号","d":"2024-09-25","u":"https://rsj.sh.gov.cn/tjypx_17737/20240930/t0035_1427975.html","s":"上海市人社局","c":"人才与技能","x":""},{"t":"上海市人力资源和社会保障局 上海市卫生健康委员会 上海市医疗保障局关于印发《上海市工伤康复定点机构遴选办法》的通知","no":"沪人社福〔2024〕275号","d":"2024-09-14","u":"https://rsj.sh.gov.cn/tshbx_17738/20241113/t0035_1428861.html","s":"上海市人社局","c":"社保","x":""},{"t":"上海市人力资源和社会保障局 上海市农业农村委员会关于进一步做好本市工程系列农业农村领域专业技术人员职称评审工作的通知","no":"沪人社专〔2024〕274号","d":"2024-09-13","u":"https://rsj.sh.gov.cn/trsrc_17739/20241008/t0035_1428015.html","s":"上海市人社局","c":"人才与技能","x":""},{"t":"上海市人力资源和社会保障局 上海市农业农村委员会关于印发《上海市农业技术人员职称评审办法》的通知","no":"沪人社专〔2024〕273号","d":"2024-09-13","u":"https://rsj.sh.gov.cn/trsrc_17739/20241008/t0035_1428032.html","s":"上海市人社局","c":"人才与技能","x":""},{"t":"上海市人力资源和社会保障局关于公布上海库帕思科技有限公司社会培训评价组织的通知","no":"沪人社职〔2024〕305号","d":"2024-09-12","u":"https://rsj.sh.gov.cn/tjypx_17737/20240912/t0035_1427694.html","s":"上海市人社局","c":"人才与技能","x":""},{"t":"上海市人力资源和社会保障局关于开展境外职业资格证书清单项目持证人员第二批职称考核认定的通知","no":"沪人社专〔2024〕296号","d":"2024-09-04","u":"https://rsj.sh.gov.cn/trsrc_17739/20240905/t0035_1427546.html","s":"上海市人社局","c":"人才与技能","x":""},{"t":"上海市人力资源和社会保障局关于公布特斯拉（上海）有限公司等18家企业职业技能等级评价机构备案期满评估结果的通知","no":"沪人社职〔2024〕289号","d":"2024-08-30","u":"https://rsj.sh.gov.cn/tjypx_17737/20240905/t0035_1427545.html","s":"上海市人社局","c":"人才与技能","x":""},{"t":"上海市人力资源和社会保障局关于公布上海科技管理学校社会培训评价组织备案期满评估结果的通知","no":"沪人社职〔2024〕287号","d":"2024-08-30","u":"https://rsj.sh.gov.cn/tjypx_17737/20240905/t0035_1427543.html","s":"上海市人社局","c":"人才与技能","x":""},{"t":"上海市人力资源和社会保障局关于公布上海交通大学等职业技能等级认定社会培训评价组织的通知","no":"沪人社职〔2024〕288号","d":"2024-08-30","u":"https://rsj.sh.gov.cn/tjypx_17737/20240905/t0035_1427544.html","s":"上海市人社局","c":"人才与技能","x":""},{"t":"上海市人力资源和社会保障局关于开展安全防范系统安装维护员等社会培训评价组织征集遴选工作的通知","no":"沪人社职〔2024〕270号","d":"2024-08-19","u":"https://rsj.sh.gov.cn/tjypx_17737/20240820/t0035_1427187.html","s":"上海市人社局","c":"人才与技能","x":""},{"t":"上海市人力资源和社会保障局关于公布上海市电梯行业协会社会培训评价组织备案期满复评结果的通知","no":"沪人社职〔2024〕267号","d":"2024-08-15","u":"https://rsj.sh.gov.cn/tjypx_17737/20240820/t0035_1427184.html","s":"上海市人社局","c":"人才与技能","x":""},{"t":"上海市人力资源和社会保障局关于调整本市工伤人员伤残津贴和生活护理费标准的通知","no":"沪人社规〔2024〕16号","d":"2024-08-05","u":"https://rsj.sh.gov.cn/tshbx_17729/20240808/t0035_1426965.html","s":"上海市人社局","c":"补贴","x":""},{"t":"上海市人力资源和社会保障局 上海市财政局关于延长《关于贯彻落实〈人力资源社会保障部、财政部关于机关事业单位基本养老保险关系和职业年金转移接续若干问题的通知〉的通知》有效期的通知","no":"沪人社规〔2024〕15号","d":"2024-07-31","u":"https://rsj.sh.gov.cn/tqt_17733/20240801/t0035_1426833.html","s":"上海市人社局","c":"社保","x":""},{"t":"上海市人力资源和社会保障局关于印发《上海市工程系列数字技术专业职称评审办法》的通知","no":"沪人社专〔2024〕238号","d":"2024-07-25","u":"https://rsj.sh.gov.cn/trsrc_17739/20240726/t0035_1426687.html","s":"上海市人社局","c":"人才与技能","x":""},{"t":"上海市人力资源和社会保障局等四部门关于调整户口仍在外地的农婚知青生活困难补助标准的通知","no":"沪人社规〔2024〕14号","d":"2024-07-23","u":"https://rsj.sh.gov.cn/tgzfl_17732/20240726/t0035_1426684.html","s":"上海市人社局","c":"补贴","x":""},{"t":"上海市人力资源和社会保障局关于上海市专业技术人才知识更新工程2024年度高级研修项目（急需紧缺人才培养项目）计划的通知","no":"沪人社专〔2024〕232号","d":"2024-07-22","u":"https://rsj.sh.gov.cn/trsrc_17739/20240726/t0035_1426708.html","s":"上海市人社局","c":"人才与技能","x":""},{"t":"上海市人力资源和社会保障局关于进一步完善本市专业技术人员继续教育公需科目培训工作的通知","no":"沪人社专〔2024〕221号","d":"2024-07-16","u":"https://rsj.sh.gov.cn/trsrc_17739/20241206/t0035_1429305.html","s":"上海市人社局","c":"人才与技能","x":""},{"t":"上海市人力资源和社会保障局关于开展2024年度本市国家级高技能人才培训基地建设项目申报推荐工作的通知","no":"沪人社职〔2024〕211号","d":"2024-07-03","u":"https://rsj.sh.gov.cn/tjypx_17737/20240716/t0035_1426064.html","s":"上海市人社局","c":"人才与技能","x":""},{"t":"上海市人力资源和社会保障局关于劳务派遣单位享受失业保险稳岗返还有关问题的通知","no":"沪人社就〔2024〕210号","d":"2024-07-03","u":"https://rsj.sh.gov.cn/tjypx_17737/20260512/t0035_1428423.html","s":"上海市人社局","c":"劳动合同","x":""},{"t":"上海市人力资源和社会保障局关于公布上海市工业技术学校等3家社会培训评价组织备案期满评估结果的通知","no":"沪人社职〔2024〕205号","d":"2024-07-01","u":"https://rsj.sh.gov.cn/tjypx_17737/20240716/t0035_1426063.html","s":"上海市人社局","c":"人才与技能","x":""},{"t":"上海市人力资源和社会保障局关于开展2024年技能大师工作室及首席技师资助申报工作的通知","no":"沪人社职〔2024〕200号","d":"2024-06-28","u":"https://rsj.sh.gov.cn/tjypx_17737/20240702/t0035_1425114.html","s":"上海市人社局","c":"人才与技能","x":""},{"t":"上海市人力资源和社会保障局 上海市财政局关于2024年调整本市退休人员基本养老金的通知","no":"沪人社规〔2024〕9号","d":"2024-06-28","u":"https://rsj.sh.gov.cn/tshbx_17729/20240705/t0035_1425205.html","s":"上海市人社局","c":"社保","x":""},{"t":"上海市人力资源和社会保障局 上海市财政局关于2024年调整本市城乡居民养老保险领取养老金人员养老金的通知","no":"沪人社规〔2024〕11号","d":"2024-06-28","u":"https://rsj.sh.gov.cn/tshbx_17729/20240705/t0035_1425211.html","s":"上海市人社局","c":"社保","x":""},{"t":"上海市人力资源和社会保障局关于调整本市失业保险金支付标准的通知","no":"沪人社规〔2024〕13号","d":"2024-06-26","u":"https://rsj.sh.gov.cn/tshbx_17729/20240628/t0035_1425027.html","s":"上海市人社局","c":"社保","x":""},{"t":"上海市人力资源和社会保障局关于2024年调整本市征地养老人员生活费标准的通知","no":"沪人社规〔2024〕12号","d":"2024-06-26","u":"https://rsj.sh.gov.cn/tshbx_17729/20240705/t0035_1425212.html","s":"上海市人社局","c":"社保","x":""},{"t":"上海市人力资源和社会保障局等四部门关于印发《关于提升高校毕业生技能水平 推动高质量充分就业的若干措施》的通知","no":"沪人社职〔2024〕178号","d":"2024-06-13","u":"https://rsj.sh.gov.cn/tjypx_17737/20240617/t0035_1424754.html","s":"上海市人社局","c":"人才与技能","x":""},{"t":"上海市人力资源和社会保障局关于公布上海汽车集团股份有限公司社会培训评价组织备案期满评估结果的通知","no":"沪人社职〔2024〕172号","d":"2024-06-11","u":"https://rsj.sh.gov.cn/tjypx_17737/20240614/t0035_1424745.html","s":"上海市人社局","c":"人才与技能","x":""},{"t":"上海市人力资源和社会保障局关于公布中国航发上海商用航空发动机制造有限责任公司等7家企业职业技能等级评价机构备案期满评估结果的通知","no":"沪人社职〔2024〕170号","d":"2024-06-06","u":"https://rsj.sh.gov.cn/tjypx_17737/20240614/t0035_1424744.html","s":"上海市人社局","c":"人才与技能","x":""},{"t":"上海市人力资源和社会保障局关于举办长三角一体化与高水平人才高地建设高级研修班的通知","no":"沪人社专〔2024〕149号","d":"2024-05-23","u":"https://rsj.sh.gov.cn/trsrc_17739/20240524/t0035_1424306.html","s":"上海市人社局","c":"人才与技能","x":""},{"t":"上海市人力资源和社会保障局关于同意上海宝钢新材料技术有限公司等10家单位退出企业职业技能等级评价机构的批复","no":"沪人社职〔2024〕147号","d":"2024-05-22","u":"https://rsj.sh.gov.cn/tjypx_17737/20240523/t0035_1424261.html","s":"上海市人社局","c":"人才与技能","x":""},{"t":"上海市人力资源和社会保障局关于举办数智医疗装备创新高级研修项目的通知","no":"沪人社专〔2024〕151号","d":"2024-05-21","u":"https://rsj.sh.gov.cn/trsrc_17739/20240524/t0035_1424309.html","s":"上海市人社局","c":"社保","x":""},{"t":"上海市人力资源和社会保障局等四部门关于实施失业保险稳岗返还的通知","no":"沪人社规〔2024〕8号","d":"2024-05-17","u":"https://rsj.sh.gov.cn/tshbx_17729/20240524/t0035_1424313.html","s":"上海市人社局","c":"社保","x":""},{"t":"上海市人力资源和社会保障局 上海市体育局 上海市教育委员会关于印发《上海市学校教练员职称评价标准（试行）》的通知","no":"沪人社专〔2024〕167号","d":"2024-05-16","u":"https://rsj.sh.gov.cn/trsrc_17739/20240709/t0035_1425251.html","s":"上海市人社局","c":"人才与技能","x":""},{"t":"上海市人力资源和社会保障局关于开展电子商务师（跨境电子商务师）等第四批社会培训评价组织征集遴选工作的通知","no":"沪人社职〔2024〕124号","d":"2024-04-29","u":"https://rsj.sh.gov.cn/tjypx_17737/20240507/t0035_1423974.html","s":"上海市人社局","c":"人才与技能","x":""},{"t":"上海市人力资源和社会保障局关于进一步加强职业技能等级认定规范管理工作的通知","no":"沪人社职〔2024〕120号","d":"2024-04-26","u":"https://rsj.sh.gov.cn/tjypx_17737/20240428/t0035_1423802.html","s":"上海市人社局","c":"人才与技能","x":""},{"t":"上海市人力资源和社会保障局关于面向中职学校开展院校类职业技能等级评价机构申报备案工作的通知","no":"沪人社职〔2024〕119号","d":"2024-04-25","u":"https://rsj.sh.gov.cn/tjypx_17737/20240428/t0035_1423801.html","s":"上海市人社局","c":"人才与技能","x":""},{"t":"上海市人力资源和社会保障局 上海市财政局 上海市教育委员会关于实施本市重点群体一次性吸纳就业补贴的通知","no":"沪人社规〔2024〕7号","d":"2024-04-25","u":"https://rsj.sh.gov.cn/tjypx_17728/20240506/t0035_1423925.html","s":"上海市人社局","c":"补贴","x":""},{"t":"上海市人力资源和社会保障局关于征集上海市专业技术人才知识更新工程2024年度高级研修项目（急需紧缺人才培养项目）选题的通知","no":"沪人社专〔2024〕112号","d":"2024-04-22","u":"https://rsj.sh.gov.cn/trsrc_17739/20240423/t0035_1423723.html","s":"上海市人社局","c":"人才与技能","x":""},{"t":"上海市人力资源和社会保障局关于公布上海航天技术研究院等12家社会培训评价机构备案期满评估结果的通知","no":"沪人社职〔2024〕110号","d":"2024-04-22","u":"https://rsj.sh.gov.cn/tjypx_17737/20240422/t0035_1423695.html","s":"上海市人社局","c":"人才与技能","x":""},{"t":"上海市人力资源和社会保障局关于本市工伤保险若干问题的意见","no":"沪人社规〔2024〕6号","d":"2024-03-28","u":"https://rsj.sh.gov.cn/tshbx_17729/20240409/t0035_1423453.html","s":"上海市人社局","c":"社保","x":""},{"t":"上海市人力资源和社会保障局 上海市财政局关于上海市城乡居民基本养老保险个人缴费和政府补贴标准有关事项的通知","no":"沪人社规〔2024〕5号","d":"2024-03-20","u":"https://rsj.sh.gov.cn/tshbx_17729/20240424/t0035_1423726.html","s":"上海市人社局","c":"补贴","x":""},{"t":"上海市人力资源和社会保障局 上海市财政局 国家税务总局上海市税务局关于实施《上海市城乡居民基本养老保险办法》若干问题处理意见的通知","no":"沪人社规〔2024〕4号","d":"2024-03-20","u":"https://rsj.sh.gov.cn/tshbx_17729/20240424/t0035_1423725.html","s":"上海市人社局","c":"社保","x":""},{"t":"关于上海华谊控股集团有限公司继续承接上海市高技能人才培养基地等资质的复函","no":"沪人社职〔2024〕79号","d":"2024-03-07","u":"https://rsj.sh.gov.cn/tjypx_17737/20240314/t0035_1421838.html","s":"上海市人社局","c":"人才与技能","x":""},{"t":"上海市人力资源和社会保障局关于开展境外职业资格证书清单项目持证人员首批职称考核认定的通知","no":"沪人社专〔2024〕75号","d":"2024-03-04","u":"https://rsj.sh.gov.cn/trsrc_17739/20240312/t0035_1421775.html","s":"上海市人社局","c":"人才与技能","x":""},{"t":"上海市人力资源和社会保障局 上海市医疗保障局关于持港澳台居民居住证人员参加上海市城乡居民基本养老和医疗保险有关问题的通知","no":"沪人社居〔2024〕72号","d":"2024-02-29","u":"https://rsj.sh.gov.cn/tshbx_17738/20260119/t0035_1438068.html","s":"上海市人社局","c":"社保","x":""},{"t":"上海市人力资源和社会保障局关于进一步加强农民工职业技能培训评价工作的通知","no":"沪人社职〔2024〕70号","d":"2024-02-27","u":"https://rsj.sh.gov.cn/tjypx_17737/20240314/t0035_1421837.html","s":"上海市人社局","c":"人才与技能","x":""},{"t":"上海市人力资源和社会保障局等七部门关于组织开展2024年上海市职业技能竞赛活动的通知","no":"沪人社职〔2024〕64号","d":"2024-02-23","u":"https://rsj.sh.gov.cn/tjypx_17737/20240227/t0035_1421483.html","s":"上海市人社局","c":"人才与技能","x":""},{"t":"上海市人力资源和社会保障局关于做好本市职业技能考核鉴定机构信息报送工作的通知","no":"沪人社职〔2024〕63号","d":"2024-02-23","u":"https://rsj.sh.gov.cn/tjypx_17737/20240227/t0035_1421491.html","s":"上海市人社局","c":"人才与技能","x":""},{"t":"关于同意职业技能等级评价机构更名的批复","no":"沪人社职〔2024〕52号","d":"2024-02-07","u":"https://rsj.sh.gov.cn/tjypx_17737/20240219/t0035_1421306.html","s":"上海市人社局","c":"人才与技能","x":""},{"t":"上海市人力资源和社会保障局关于延续中国邮政集团有限公司上海市分公司等3家企业职业技能等级评价机构有效期的通知","no":"沪人社职〔2024〕49号","d":"2024-02-06","u":"https://rsj.sh.gov.cn/tjypx_17737/20240219/t0035_1421299.html","s":"上海市人社局","c":"人才与技能","x":""},{"t":"上海市就业工作领导小组关于印发《2024年加强新时代高技能人才队伍建设工作要点》的通知","no":"沪就办〔2024〕1号","d":"2024-02-05","u":"https://rsj.sh.gov.cn/tjypx_17737/20240207/t0035_1421164.html","s":"上海市人社局","c":"人才与技能","x":""},{"t":"上海市人力资源和社会保障局关于面向高等学校开展院校类职业技能等级评价机构申报备案工作的通知","no":"沪人社职〔2024〕41号","d":"2024-01-25","u":"https://rsj.sh.gov.cn/tjypx_17737/20240129/t0035_1420956.html","s":"上海市人社局","c":"人才与技能","x":""},{"t":"上海市人力资源和社会保障局关于开展社会培训评价组织新增征集遴选工作的通知","no":"沪人社职〔2024〕39号","d":"2024-01-25","u":"https://rsj.sh.gov.cn/tjypx_17737/20240129/t0035_1420955.html","s":"上海市人社局","c":"人才与技能","x":""},{"t":"上海市人力资源和社会保障局关于开展2024年上海市社会化职业技能等级认定有关事项的通知","no":"沪人社职〔2024〕38号","d":"2024-01-25","u":"https://rsj.sh.gov.cn/tjypx_17737/20240129/t0035_1420949.html","s":"上海市人社局","c":"人才与技能","x":""},{"t":"上海市人力资源和社会保障局关于开展本市社会培训评价组织备案期满评估工作的通知","no":"沪人社职〔2024〕36号","d":"2024-01-22","u":"https://rsj.sh.gov.cn/tjypx_17737/20240125/t0035_1420866.html","s":"上海市人社局","c":"人才与技能","x":""},{"t":"上海市人力资源和社会保障局关于报送劳务派遣公司2023年度经营情况报告的通知","no":"沪人社关〔2024〕30号","d":"2024-01-17","u":"https://rsj.sh.gov.cn/tldgx_17740/20240126/t0035_1420931.html","s":"上海市人社局","c":"劳动合同","x":""},{"t":"上海市人力资源和社会保障局 国家税务总局上海市税务局关于灵活就业人员参加本市职工基本养老保险有关问题的补充通知","no":"沪人社规〔2024〕3号","d":"2024-01-16","u":"https://rsj.sh.gov.cn/tshbx_17729/20240221/t0035_1421365.html","s":"上海市人社局","c":"社保","x":""},{"t":"上海市人力资源和社会保障局 上海市财政局关于对本市城乡居民养老保险领取养老金人员发放2024年度一次性节日补助费的通知","no":"沪人社规〔2024〕2号","d":"2024-01-10","u":"https://rsj.sh.gov.cn/tshbx_17729/20240223/t0035_1421440.html","s":"上海市人社局","c":"补贴","x":""},{"t":"上海市人力资源和社会保障局关于2024年“元旦、春节”期间对家庭生活困难的失业人员发放一次性补助的通知","no":"沪人社规〔2024〕1号","d":"2024-01-05","u":"https://rsj.sh.gov.cn/tshbx_17729/20240223/t0035_1421439.html","s":"上海市人社局","c":"补贴","x":""},{"t":"中共上海市委组织部 上海市人力资源和社会保障局延长《关于印发〈上海市事业单位公开招聘工作人员面试工作管理实施办法〉的通知》有效期的通知","no":"沪人社规〔2023〕34号","d":"2023-12-21","u":"https://rsj.sh.gov.cn/tqt_17733/20240108/t0035_1420557.html","s":"上海市人社局","c":"人才与技能","x":""},{"t":"上海市人力资源和社会保障局延长《关于印发〈上海市事业单位公开招聘人员办法〉的通知》有效期的通知","no":"沪人社规〔2023〕33号","d":"2023-12-14","u":"https://rsj.sh.gov.cn/tqt_17733/20240108/t0035_1420556.html","s":"上海市人社局","c":"人才与技能","x":""},{"t":"上海市人力资源和社会保障局关于规范本市劳务派遣用工若干问题的意见","no":"沪人社规〔2023〕32号","d":"2023-12-06","u":"https://rsj.sh.gov.cn/tldgx_17731/20231212/t0035_1420035.html","s":"上海市人社局","c":"劳动合同","x":""},{"t":"上海市人力资源和社会保障局 上海市医疗保障局关于印发《上海市工伤康复管理办法》的通知","no":"沪人社规〔2023〕31号","d":"2023-11-15","u":"https://rsj.sh.gov.cn/tshbx_17729/20231120/t0035_1419591.html","s":"上海市人社局","c":"社保","x":""},{"t":"上海市人力资源和社会保障局等四部门关于本市超过法定退休年龄就业人员和实习生参加工伤保险的试行意见","no":"沪人社规〔2023〕30号","d":"2023-11-09","u":"https://rsj.sh.gov.cn/tshbx_17729/20231121/t0035_1419625.html","s":"上海市人社局","c":"社保","x":""},{"t":"上海市人力资源和社会保障局关于延长《关于调整本市夏季高温津贴标准的通知》有效期的通知","no":"沪人社规〔2023〕29号","d":"2023-10-30","u":"https://rsj.sh.gov.cn/tgzfl_17732/20231214/t0035_1420075.html","s":"上海市人社局","c":"补贴","x":""},{"t":"上海市人力资源和社会保障局关于执行《上海市工伤保险实施办法》若干问题的意见","no":"沪人社规〔2023〕28号","d":"2023-10-24","u":"https://rsj.sh.gov.cn/tshbx_17729/20231114/t0035_1419497.html","s":"上海市人社局","c":"社保","x":""},{"t":"上海市人力资源和社会保障局 上海市教育委员会 上海市财政局关于延续实施一次性扩岗补助政策有关工作的通知","no":"沪人社规〔2023〕27号","d":"2023-10-17","u":"https://rsj.sh.gov.cn/tjypx_17728/20240129/t0035_1420945.html","s":"上海市人社局","c":"补贴","x":""},{"t":"上海市人力资源和社会保障局 上海市财政局关于进一步做好灵活就业人员就业创业工作有关事项的补充通知","no":"沪人社规〔2023〕25号","d":"2023-09-20","u":"https://rsj.sh.gov.cn/tjypx_17728/20231026/t0035_1419082.html","s":"上海市人社局","c":"人才与技能","x":""},{"t":"上海市人力资源和社会保障局等五部门关于进一步做好本市毕业生相关就业补贴工作的通知","no":"沪人社规〔2023〕22号","d":"2023-08-09","u":"https://rsj.sh.gov.cn/tjypx_17728/20230822/t0035_1417608.html","s":"上海市人社局","c":"补贴","x":""},{"t":"上海市人力资源和社会保障局 上海市财政局 上海市教育委员会关于给予本市相关用人单位一次性吸纳就业补贴的补充通知","no":"沪人社规〔2023〕21号","d":"2023-08-09","u":"https://rsj.sh.gov.cn/tjypx_17728/20230822/t0035_1417606.html","s":"上海市人社局","c":"补贴","x":""},{"t":"上海市人力资源和社会保障局等四部门关于调整户口仍在外地的农婚知青生活困难补助标准的通知","no":"沪人社规〔2023〕20号","d":"2023-07-19","u":"https://rsj.sh.gov.cn/tgzfl_17732/20230811/t0035_1417600.html","s":"上海市人社局","c":"补贴","x":""},{"t":"上海市人力资源和社会保障局关于2023年调整本市征地养老人员生活费标准的通知","no":"沪人社规〔2023〕13号","d":"2023-07-11","u":"https://rsj.sh.gov.cn/tshbx_17729/20230726/t0035_1417300.html","s":"上海市人社局","c":"社保","x":""},{"t":"上海市人力资源和社会保障局 上海市财政局关于2023年调整本市退休人员基本养老金的通知","no":"沪人社规〔2023〕10号","d":"2023-07-11","u":"https://rsj.sh.gov.cn/tshbx_17729/20230726/t0035_1417297.html","s":"上海市人社局","c":"社保","x":""},{"t":"上海市人力资源和社会保障局 上海市财政局关于2023年调整本市城乡居民养老保险领取养老金人员养老金的通知","no":"沪人社规〔2023〕12号","d":"2023-07-11","u":"https://rsj.sh.gov.cn/tshbx_17729/20230726/t0035_1417299.html","s":"上海市人社局","c":"社保","x":""},{"t":"上海市人力资源和社会保障局关于调整本市最低工资标准的通知","no":"沪人社规〔2023〕19号","d":"2023-06-30","u":"https://rsj.sh.gov.cn/tgzfl_17732/20230707/t0035_1416836.html","s":"上海市人社局","c":"劳动合同","x":""},{"t":"上海市人力资源和社会保障局关于本市2023年办理申领基本养老金手续的企业参保人员计发基本养老金的补充通知","no":"沪人社规〔2023〕18号","d":"2023-06-30","u":"https://rsj.sh.gov.cn/tshbx_17729/20230726/t0035_1417301.html","s":"上海市人社局","c":"社保","x":""},{"t":"上海市人力资源和社会保障局关于调整本市工伤人员伤残津贴和生活护理费标准的通知","no":"沪人社规〔2023〕15号","d":"2023-06-27","u":"https://rsj.sh.gov.cn/tshbx_17729/20230707/t0035_1416807.html","s":"上海市人社局","c":"补贴","x":""},{"t":"上海市人力资源和社会保障局关于调整本市失业保险金支付标准的通知","no":"沪人社规〔2023〕17号","d":"2023-06-26","u":"https://rsj.sh.gov.cn/tshbx_17729/20230707/t0035_1416827.html","s":"上海市人社局","c":"社保","x":""},{"t":"上海市人力资源和社会保障局 上海市财政局国家税务总局上海市税务局关于继续阶段性降低本市城镇职工社会保险费率的通知","no":"沪人社规〔2023〕9号","d":"2023-04-27","u":"https://rsj.sh.gov.cn/tshbx_17729/20230428/t0035_1415236.html","s":"上海市人社局","c":"社保","x":""},{"t":"上海市人力资源和社会保障局 上海市财政局关于加强创业培训有关事项的通知","no":"沪人社规〔2023〕7号","d":"2023-04-13","u":"https://rsj.sh.gov.cn/tjypx_17728/20230428/t0035_1415201.html","s":"上海市人社局","c":"人才与技能","x":""},{"t":"上海市人力资源和社会保障局 上海市财政局关于印发《上海市社会保险基金监督举报奖励实施细则》的通知","no":"沪人社规〔2023〕6号","d":"2023-03-31","u":"https://rsj.sh.gov.cn/tshbx_17729/20230404/t0035_1414665.html","s":"上海市人社局","c":"社保","x":""},{"t":"上海市人力资源和社会保障局 上海市医疗保障局 国家税务总局上海市税务局关于灵活就业人员参加本市职工基本养老、职工基本医疗保险有关问题的通知","no":"沪人社规〔2023〕5号","d":"2023-03-31","u":"https://rsj.sh.gov.cn/tshbx_17729/20260520/t0035_1415199.html","s":"上海市人社局","c":"社保","x":""},{"t":"上海市人力资源和社会保障局 上海市财政局 上海市教育委员会关于给予本市相关用人单位一次性吸纳就业补贴的通知","no":"沪人社规〔2023〕2号","d":"2023-03-07","u":"https://rsj.sh.gov.cn/tjypx_17728/20230428/t0035_1415197.html","s":"上海市人社局","c":"补贴","x":""},{"t":"上海市人力资源和社会保障局等四部门关于巩固拓展城乡居民基本养老保险扶贫成果的通知","no":"沪人社规〔2022〕40号","d":"2022-12-27","u":"https://rsj.sh.gov.cn/tshbx_17729/20230112/t0035_1412740.html","s":"上海市人社局","c":"社保","x":""},{"t":"上海市人力资源和社会保障局等五部门关于印发《上海市工伤预防费使用管理办法》的通知","no":"沪人社规〔2022〕39号","d":"2022-12-16","u":"https://rsj.sh.gov.cn/tshbx_17729/20230118/t0035_1412935.html","s":"上海市人社局","c":"社保","x":""},{"t":"上海市人力资源和社会保障局 上海市财政局关于对本市城乡居民养老保险领取养老金人员发放2023年度一次性节日补助费的通知","no":"沪人社规〔2022〕38号","d":"2022-12-12","u":"https://rsj.sh.gov.cn/tshbx_17729/20230112/t0035_1412739.html","s":"上海市人社局","c":"补贴","x":""},{"t":"上海市人力资源和社会保障局关于延长《关于印发〈上海市工伤康复管理办法〉的通知》有效期的通知","no":"沪人社规〔2022〕37号","d":"2022-12-08","u":"https://rsj.sh.gov.cn/tshbx_17729/20230301/t0035_1413863.html","s":"上海市人社局","c":"社保","x":""},{"t":"上海市人力资源和社会保障局关于2023年“元旦、春节”期间对家庭生活困难的失业人员发放一次性补助的通知","no":"沪人社规〔2022〕36号","d":"2022-12-05","u":"https://rsj.sh.gov.cn/tshbx_17729/20221216/t0035_1412352.html","s":"上海市人社局","c":"补贴","x":""},{"t":"上海市人力资源和社会保障局等五部门关于进一步做好本市阶段性缓缴社会保险费政策实施工作有关问题的通知","no":"沪人社规〔2022〕34号","d":"2022-11-03","u":"https://rsj.sh.gov.cn/tshbx_17729/20221104/t0035_1411321.html","s":"上海市人社局","c":"社保","x":""},{"t":"上海市人力资源和社会保障局 上海市教育委员会 上海市财政局 关于落实一次性扩岗补助政策有关工作的通知","no":"沪人社规〔2022〕33号","d":"2022-09-05","u":"https://rsj.sh.gov.cn/tjypx_17728/20230110/t0035_1412676.html","s":"上海市人社局","c":"补贴","x":""},{"t":"上海市人力资源和社会保障局关于本市2022年办理申领基本养老金手续的企业参保人员计发基本养老金的补充通知","no":"沪人社规〔2022〕32号","d":"2022-08-02","u":"https://rsj.sh.gov.cn/tshbx_17729/20220822/t0035_1409332.html","s":"上海市人社局","c":"社保","x":""},{"t":"上海市人力资源和社会保障局关于2022年调整本市征地养老人员生活费标准的通知","no":"沪人社规〔2022〕29号","d":"2022-07-11","u":"https://rsj.sh.gov.cn/tshbx_17729/20220715/t0035_1408367.html","s":"上海市人社局","c":"社保","x":""},{"t":"上海市人力资源和社会保障局 上海市财政局关于2022年调整本市退休人员基本养老金的通知","no":"沪人社规〔2022〕26号","d":"2022-07-11","u":"https://rsj.sh.gov.cn/tshbx_17729/20220714/t0035_1408356.html","s":"上海市人社局","c":"社保","x":""},{"t":"上海市人力资源和社会保障局 上海市财政局关于2022年调整本市城乡居民养老保险领取养老金人员养老金的通知","no":"沪人社规〔2022〕28号","d":"2022-07-11","u":"https://rsj.sh.gov.cn/tshbx_17729/20220715/t0035_1408361.html","s":"上海市人社局","c":"社保","x":""},{"t":"上海市人力资源和社会保障局 上海市卫生健康委员会 上海市医疗保障局关于印发《上海市劳动能力鉴定管理办法》的通知","no":"沪人社规〔2022〕31号","d":"2022-07-01","u":"https://rsj.sh.gov.cn/tldgx_17731/20230207/t0035_1413316.html","s":"上海市人社局","c":"劳动合同","x":""},{"t":"上海市人力资源和社会保障局关于调整本市工伤人员伤残津贴和生活护理费标准的通知","no":"沪人社规〔2022〕22号","d":"2022-06-24","u":"https://rsj.sh.gov.cn/tshbx_17729/20220707/t0035_1408188.html","s":"上海市人社局","c":"补贴","x":""},{"t":"上海市人力资源和社会保障局关于调整本市失业保险金支付标准的通知","no":"沪人社规〔2022〕21号","d":"2022-06-24","u":"https://rsj.sh.gov.cn/tshbx_17729/20220629/t0035_1407821.html","s":"上海市人社局","c":"社保","x":""},{"t":"上海市人力资源和社会保障局等四部门关于调整户口仍在外地的农婚知青生活困难补助标准的通知","no":"沪人社规〔2022〕30号","d":"2022-06-20","u":"https://rsj.sh.gov.cn/tqt_17733/20220909/t0035_1409735.html","s":"上海市人社局","c":"补贴","x":""},{"t":"上海市人力资源和社会保障局等六部门关于印发《贯彻〈工程建设领域农民工工资保证金规定〉实施办法》的通知","no":"沪人社规〔2022〕20号","d":"2022-06-14","u":"https://rsj.sh.gov.cn/tldgx_17731/20220915/t0035_1409866.html","s":"上海市人社局","c":"劳动合同","x":""},{"t":"上海市人力资源和社会保障局等五部门关于本市扩大阶段性缓缴社会保险费政策实施范围的通知","no":"沪人社规〔2022〕19号","d":"2022-06-13","u":"https://rsj.sh.gov.cn/tshbx_17729/20220615/t0035_1407506.html","s":"上海市人社局","c":"社保","x":""},{"t":"上海市人力资源和社会保障局 上海市财政局关于本市劳动者申领职业技能提升补贴有关事项的通知","no":"沪人社规〔2022〕17号","d":"2022-06-01","u":"https://rsj.sh.gov.cn/tjypx_17728/20220606/t0035_1407258.html","s":"上海市人社局","c":"补贴","x":""},{"t":"上海市人力资源和社会保障局 上海市财政局 上海市商务委员会 上海市教育委员会 上海市交通委员会 上海市文化和旅游局关于给予本市相关用人单位就业补贴应对疫情稳岗保就业的通知","no":"沪人社规〔2022〕18号","d":"2022-06-01","u":"https://rsj.sh.gov.cn/tjypx_17728/20220606/t0035_1407280.html","s":"上海市人社局","c":"补贴","x":""},{"t":"上海市人力资源和社会保障局等四部门关于本市特困行业阶段性实施缓缴企业社会保险费政策的通知","no":"沪人社规〔2022〕15号","d":"2022-05-24","u":"https://rsj.sh.gov.cn/tshbx_17729/20220524/t0035_1407110.html","s":"上海市人社局","c":"社保","x":""},{"t":"上海市人力资源和社会保障局 上海市邮政管理局关于做好本市基层快递网点优先参加工伤保险工作的通知","no":"沪人社规〔2022〕14号","d":"2022-05-16","u":"https://rsj.sh.gov.cn/tshbx_17729/20220701/t0035_1407930.html","s":"上海市人社局","c":"社保","x":""},{"t":"上海市人力资源和社会保障局 上海市财政局 国家税务总局上海市税务局关于继续阶段性降低本市城镇职工社会保险费率的通知","no":"沪人社规〔2022〕13号","d":"2022-04-29","u":"https://rsj.sh.gov.cn/tshbx_17729/20220429/t0035_1406908.html","s":"上海市人社局","c":"社保","x":""},{"t":"关于印发《关于本市实行不定时工作制和综合计算工时工作制的行政许可办法》的通知","no":"沪人社规〔2022〕11号","d":"2022-04-14","u":"https://rsj.sh.gov.cn/tldgx_17731/20220708/t0035_1408221.html","s":"上海市人社局","c":"劳动合同","x":""},{"t":"上海市人力资源和社会保障局关于延长《上海市人力资源和社会保障局、上海市住房和城乡建设管理委员会关于在沪施工企业外来从业人员参加本市城镇职工基本社会保险若干问题的通知》有效期的通知","no":"沪人社规〔2022〕12号","d":"2022-03-25","u":"https://rsj.sh.gov.cn/tqt_17733/20220815/t0035_1409192.html","s":"上海市人社局","c":"社保","x":""},{"t":"上海市人力资源和社会保障局 上海市医疗保障局 国家税务总局上海市税务局关于贯彻《人力资源和社会保障部 财政部关于解决未参保集体企业退休人员基本养老保障等遗留问题的意见》有关问题的通知","no":"沪人社规〔2022〕9号","d":"2022-03-09","u":"https://rsj.sh.gov.cn/tshbx_17729/20260520/t0035_1407962.html","s":"上海市人社局","c":"社保","x":""},{"t":"上海市人力资源和社会保障局等四部门关于本市被征地人员就业和社会保障若干问题处理意见的通知","no":"沪人社规〔2022〕4号","d":"2022-03-01","u":"https://rsj.sh.gov.cn/tshbx_17729/20220314/t0035_1406370.html","s":"上海市人社局","c":"人才与技能","x":""},{"t":"上海市人力资源和社会保障局 上海市财政局 上海市民政局 上海市残疾人联合会关于进一步做好本市就业援助工作的若干意见","no":"沪人社规〔2022〕8号","d":"2022-02-23","u":"https://rsj.sh.gov.cn/tjypx_17728/20220311/t0035_1406349.html","s":"上海市人社局","c":"人才与技能","x":""},{"t":"关于对本市城乡居民养老保险领取养老金人员发放2022年度一次性节日补助费的通知","no":"沪人社规〔2022〕2号","d":"2022-01-12","u":"https://rsj.sh.gov.cn/tshbx_17729/20220126/t0035_1405379.html","s":"上海市人社局","c":"补贴","x":""},{"t":"上海市人力资源和社会保障局等八部门关于维护新就业形态劳动者劳动保障权益的实施意见","no":"沪人社规〔2022〕1号","d":"2022-01-04","u":"https://rsj.sh.gov.cn/tldgx_17731/20220210/t0035_1405575.html","s":"上海市人社局","c":"劳动合同","x":""},{"t":"关于印发《关于劳动保障监察领域行政处罚裁量基准的规定》的通知","no":"沪人社规〔2021〕36号","d":"2021-12-31","u":"https://rsj.sh.gov.cn/tldgx_17731/20221101/t0035_1411208.html","s":"上海市人社局","c":"劳动合同","x":""},{"t":"上海市人力资源和社会保障局关于2022年“元旦、春节”期间对家庭生活困难的失业人员发放一次性补助的通知","no":"沪人社规〔2021〕35号","d":"2021-12-31","u":"https://rsj.sh.gov.cn/tshbx_17729/20220117/t0035_1405161.html","s":"上海市人社局","c":"补贴","x":""},{"t":"关于实施劳务派遣经营许可有关事项的通知","no":"沪人社规〔2021〕33号","d":"2021-12-14","u":"https://rsj.sh.gov.cn/tldgx_17731/20211229/t0035_1404786.html","s":"上海市人社局","c":"劳动合同","x":""},{"t":"关于印发《中国（上海）自由贸易试验区及临港新片区实行劳务派遣经营许可告知承诺的试点办法》的通知","no":"沪人社规〔2021〕34号","d":"2021-12-14","u":"https://rsj.sh.gov.cn/tldgx_17731/20211229/t0035_1404787.html","s":"上海市人社局","c":"劳动合同","x":""},{"t":"关于本市企业基本养老金计发办法的通知","no":"沪人社规〔2021〕32号","d":"2021-12-13","u":"https://rsj.sh.gov.cn/tshbx_17729/20220117/t0035_1405188.html","s":"上海市人社局","c":"社保","x":""},{"t":"上海市人力资源和社会保障局等六部门关于促进本市企业年金发展的指导意见","no":"沪人社规〔2021〕31号","d":"2021-11-19","u":"https://rsj.sh.gov.cn/tgzfl_17732/20220113/t0035_1405126.html","s":"上海市人社局","c":"社保","x":""},{"t":"上海市人力资源和社会保障局关于印发《上海市职称评审管理办法》的通知","no":"沪人社规〔2021〕30号","d":"2021-11-16","u":"https://rsj.sh.gov.cn/trsrc_17730/20211203/t0035_1404189.html","s":"上海市人社局","c":"人才与技能","x":""},{"t":"上海市人力资源和社会保障局 上海市财政局 上海市教育委员会关于进一步加强本市青年就业创业见习工作的通知","no":"沪人社规〔2021〕29号","d":"2021-10-28","u":"https://rsj.sh.gov.cn/tjypx_17728/20220106/t0035_1405028.html","s":"上海市人社局","c":"人才与技能","x":""},{"t":"上海市人力资源和社会保障局 上海市财政局关于进一步做好灵活就业人员就业创业工作有关事项的通知","no":"沪人社规〔2021〕28号","d":"2021-10-20","u":"https://rsj.sh.gov.cn/tjypx_17728/20220117/t0035_1405186.html","s":"上海市人社局","c":"人才与技能","x":""},{"t":"关于本市企业基本养老金计发办法有关问题的通知","no":"沪人社规〔2021〕27号","d":"2021-08-24","u":"https://rsj.sh.gov.cn/tshbx_17729/20220117/t0035_1405184.html","s":"上海市人社局","c":"社保","x":""},{"t":"上海市人力资源和社会保障局关于印发《上海市集体合同审查办法》的通知","no":"沪人社规〔2021〕26号","d":"2021-08-09","u":"https://rsj.sh.gov.cn/tldgx_17731/20210902/t0035_1402213.html","s":"上海市人社局","c":"其他","x":""},{"t":"上海市人力资源和社会保障局 上海市财政局 上海市公安局关于加强本市财政性就业资金监管工作的通知","no":"沪人社规〔2021〕25号","d":"2021-08-04","u":"https://rsj.sh.gov.cn/tjypx_17728/20210823/t0035_1402004.html","s":"上海市人社局","c":"人才与技能","x":""},{"t":"关于延长部分就业创业类行政规范性文件有效期的通知","no":"沪人社规〔2021〕7号","d":"2021-08-02","u":"https://rsj.sh.gov.cn/tqt_17733/20210819/t0035_1401891.html","s":"上海市人社局","c":"人才与技能","x":""},{"t":"上海市人力资源和社会保障局等四部门关于调整户口仍在外地的农婚知青生活困难补助标准的通知","no":"沪人社规〔2021〕22号","d":"2021-07-01","u":"https://rsj.sh.gov.cn/tqt_17733/20210825/t0035_1402047.html","s":"上海市人社局","c":"补贴","x":""},{"t":"关于调整本市最低工资标准的通知","no":"沪人社规〔2021〕18号","d":"2021-06-23","u":"https://rsj.sh.gov.cn/tgzfl_17732/20210628/t0035_1400413.html","s":"上海市人社局","c":"劳动合同","x":""},{"t":"关于调整本市工伤人员伤残津贴和生活护理费标准的通知","no":"沪人社规〔2021〕19号","d":"2021-06-23","u":"https://rsj.sh.gov.cn/tshbx_17729/20210628/t0035_1400414.html","s":"上海市人社局","c":"补贴","x":""},{"t":"关于调整本市失业保险金支付标准的通知","no":"沪人社规〔2021〕21号","d":"2021-06-23","u":"https://rsj.sh.gov.cn/tshbx_17729/20210628/t0035_1400421.html","s":"上海市人社局","c":"社保","x":""},{"t":"上海市人力资源和社会保障局 上海市医疗保障局关于失业人员参加本市职工基本医疗保险有关事项的通知","no":"沪人社规〔2021〕24号","d":"2021-06-23","u":"https://rsj.sh.gov.cn/tshbx_17729/20210720/t0035_1400994.html","s":"上海市人社局","c":"社保","x":""},{"t":"关于本市2021年办理申领基本养老金手续的企业参保人员计发基本养老金的补充通知","no":"沪人社规〔2021〕17号","d":"2021-06-16","u":"https://rsj.sh.gov.cn/tshbx_17729/20210702/t0035_1400550.html","s":"上海市人社局","c":"社保","x":""},{"t":"上海市人力资源和社会保障局等四部门关于做好本市公益性岗位补贴工作有关事项的通知","no":"沪人社规〔2021〕23号","d":"2021-06-11","u":"https://rsj.sh.gov.cn/tjypx_17728/20210705/t0035_1400573.html","s":"上海市人社局","c":"补贴","x":""},{"t":"上海市人力资源和社会保障局 上海市财政局关于本市因病或非因公死亡职工遗属等三类人员参加城乡居民养老保险有关问题的通知","no":"沪人社规〔2021〕16号","d":"2021-06-07","u":"https://rsj.sh.gov.cn/tshbx_17729/20210706/t0035_1400614.html","s":"上海市人社局","c":"社保","x":""},{"t":"关于继续阶段性降低本市城镇职工社会保险费率的通知","no":"沪人社规〔2021〕12号","d":"2021-04-29","u":"https://rsj.sh.gov.cn/tshbx_17729/20210526/t0035_1399768.html","s":"上海市人社局","c":"社保","x":""},{"t":"关于2021年调整本市城乡居民养老保险领取养老金人员养老金的通知","no":"沪人社规〔2021〕11号","d":"2021-04-28","u":"https://rsj.sh.gov.cn/tshbx_17729/20210608/t0035_1400010.html","s":"上海市人社局","c":"社保","x":""},{"t":"关于2021年调整本市退休人员基本养老金的通知","no":"沪人社规〔2021〕13号","d":"2021-04-26","u":"https://rsj.sh.gov.cn/tshbx_17729/20210608/t0035_1400051.html","s":"上海市人社局","c":"社保","x":""},{"t":"关于2021年调整本市征地养老人员生活费标准的通知","no":"沪人社规〔2021〕15号","d":"2021-04-23","u":"https://rsj.sh.gov.cn/tshbx_17729/20210609/t0035_1400082.html","s":"上海市人社局","c":"社保","x":""},{"t":"关于延长部分社会保险类行政规范性文件有效期的通知","no":"沪人社规〔2021〕8号","d":"2021-03-19","u":"https://rsj.sh.gov.cn/tqt_17733/20210508/t0035_1399395.html","s":"上海市人社局","c":"社保","x":""},{"t":"关于延长部分劳动关系类行政规范性文件有效期的通知","no":"沪人社规〔2021〕9号","d":"2021-03-19","u":"https://rsj.sh.gov.cn/tqt_17733/20210508/t0035_1399396.html","s":"上海市人社局","c":"劳动合同","x":""},{"t":"关于延长部分人事人才类行政规范性文件有效期的通知","no":"沪人社规〔2021〕10号","d":"2021-03-19","u":"https://rsj.sh.gov.cn/tqt_17733/20210508/t0035_1399398.html","s":"上海市人社局","c":"人才与技能","x":""},{"t":"关于对本市劳动者获得职业技能等级证书实施职业技能提升补贴的通知","no":"沪人社规〔2021〕5号","d":"2021-03-17","u":"https://rsj.sh.gov.cn/tjypx_17728/20210324/t0035_1398584.html","s":"上海市人社局","c":"补贴","x":""},{"t":"关于进一步落实受疫情影响企业职工线上职业培训补贴政策有关事项的通知","no":"沪人社规〔2021〕4号","d":"2021-02-08","u":"https://rsj.sh.gov.cn/tjypx_17728/20210305/t0035_1398263.html","s":"上海市人社局","c":"补贴","x":""},{"t":"关于本市延长以工代训补贴政策实施期限有关事项的通知","no":"沪人社规〔2021〕3号","d":"2021-02-07","u":"https://rsj.sh.gov.cn/tjypx_17728/20210220/t0035_1397994.html","s":"上海市人社局","c":"补贴","x":""},{"t":"关于印发《经营性外商投资职业技能培训机构审批管理办法》的通知","no":"沪人社规〔2021〕2号","d":"2021-01-06","u":"https://rsj.sh.gov.cn/tjypx_17728/20210201/t0035_1397732.html","s":"上海市人社局","c":"人才与技能","x":""},{"t":"关于2021年“元旦、春节”期间对家庭生活困难的失业人员发放一次性补助的通知","no":"沪人社规〔2021〕1号","d":"2021-01-05","u":"https://rsj.sh.gov.cn/tshbx_17729/20210113/t0035_1397371.html","s":"上海市人社局","c":"补贴","x":""},{"t":"关于对本市城乡居民养老保险领取养老金人员发放2021年度一次性节日补助费的通知","no":"沪人社规〔2020〕30号","d":"2020-12-31","u":"https://rsj.sh.gov.cn/tshbx_17729/20210127/t0035_1397596.html","s":"上海市人社局","c":"补贴","x":""},{"t":"关于做好本市城乡居民基本养老保险制度与城乡居民最低生活保障、特困人员救助供养及优抚制度衔接工作的通知","no":"沪人社规〔2020〕28号","d":"2020-12-22","u":"https://rsj.sh.gov.cn/tshbx_17729/20201222/t0035_1396971.html","s":"上海市人社局","c":"社保","x":""},{"t":"上海市人力资源和社会保障局等十部门关于做好本市工程建设项目参加工伤保险工作的通知","no":"沪人社规〔2020〕26号","d":"2020-11-06","u":"https://rsj.sh.gov.cn/tshbx_17729/20201130/t0035_1396507.html","s":"上海市人社局","c":"社保","x":""},{"t":"上海市人力资源和社会保障局关于进一步做好本市失业登记、失业保险有关工作的通知","no":"沪人社规〔2020〕21号","d":"2020-08-07","u":"https://rsj.sh.gov.cn/tjypx_17728/20201021/t0035_1394902.html","s":"上海市人社局","c":"社保","x":""},{"t":"上海市人力资源和社会保障局关于本市2020年办理申领基本养老金手续的企业参保人员计发基本养老金的补充通知","no":"沪人社规〔2020〕19号","d":"2020-07-21","u":"https://rsj.sh.gov.cn/tshbx_17729/20201021/t0035_1394892.html","s":"上海市人社局","c":"社保","x":""},{"t":"上海市人力资源和社会保障局等四部门关于落实企业稳岗扩岗专项支持计划实施以工代训补贴的通知","no":"沪人社规〔2020〕17号","d":"2020-07-08","u":"https://rsj.sh.gov.cn/tjypx_17728/20201020/t0035_1394881.html","s":"上海市人社局","c":"补贴","x":""},{"t":"上海市人力资源和社会保障局等四部门关于调整户口仍在外地的农婚知青生活困难补助标准的通知","no":"沪人社规〔2020〕18号","d":"2020-07-06","u":"https://rsj.sh.gov.cn/tqt_17733/20201019/t0035_1394809.html","s":"上海市人社局","c":"补贴","x":""},{"t":"关于进一步做好本市稳就业工作有关事项的通知","no":"沪人社规〔2020〕15号","d":"2020-07-03","u":"https://rsj.sh.gov.cn/tjypx_17728/20201019/t0035_1394804.html","s":"上海市人社局","c":"人才与技能","x":""},{"t":"关于延长本市阶段性减免企业社会保险费政策实施期限等问题的通知","no":"沪人社规〔2020〕14号","d":"2020-06-30","u":"https://rsj.sh.gov.cn/tshbx_17729/20201019/t0035_1394797.html","s":"上海市人社局","c":"社保","x":""},{"t":"关于调整本市工伤人员伤残津贴和生活护理费标准的通知","no":"沪人社规〔2020〕11号","d":"2020-06-18","u":"https://rsj.sh.gov.cn/tshbx_17729/20201016/t0035_1394761.html","s":"上海市人社局","c":"补贴","x":""},{"t":"关于调整本市失业保险金支付标准的通知","no":"沪人社规〔2020〕13号","d":"2020-06-18","u":"https://rsj.sh.gov.cn/tshbx_17729/20201019/t0035_1394796.html","s":"上海市人社局","c":"社保","x":""},{"t":"关于2020年调整本市城乡居民养老保险领取养老金人员养老金的通知","no":"沪人社规〔2020〕6号","d":"2020-05-09","u":"https://rsj.sh.gov.cn/tshbx_17729/20201015/t0035_1394672.html","s":"上海市人社局","c":"社保","x":""},{"t":"关于2020年调整本市企业退休人员基本养老金的通知","no":"沪人社规〔2020〕4号","d":"2020-05-09","u":"https://rsj.sh.gov.cn/tshbx_17729/20201015/t0035_1394673.html","s":"上海市人社局","c":"社保","x":""},{"t":"关于2020年调整本市征地养老人员生活费标准的通知","no":"沪人社规〔2020〕7号","d":"2020-04-30","u":"https://rsj.sh.gov.cn/tshbx_17729/20201014/t0035_1394643.html","s":"上海市人社局","c":"社保","x":""},{"t":"关于切实做好本市被征地人员就业和社会保障办理工作的通知","no":"沪人社规〔2020〕3号","d":"2020-04-01","u":"https://rsj.sh.gov.cn/tshbx_17729/20201014/t0035_1394641.html","s":"上海市人社局","c":"人才与技能","x":""}];
+window.POLICY_META = {"fetchedAt":"2026-11-10 10:36","sources":["/tgwgfx_17726/index.html","/tgwqt_17736/index.html"],"total":320};
+/* ===== DATA:END 数据区结束 ===== */
+</script>
+
+<!-- ==========================================================
+   ⑩ 界面逻辑 —— 一般不改这里；改样式请回到上面的令牌区。
+   加/改分类只改 CATS；改"几天内算新"改 NEW_DAYS。
+   ========================================================== -->
+<script>
+const CATS = ["全部","社保","公积金","劳动合同","个税","补贴","人才与技能","其他"];
+const NEW_DAYS = 2;
+const WEEK = ["周日","周一","周二","周三","周四","周五","周六"];
+
+const DATA = (window.POLICY_DATA || []);
+const META = (window.POLICY_META || {});
+const state = { cat:"全部", q:"", range:0, libQ:"" };
+
+const el = (id) => document.getElementById(id);
+const esc = (s) => String(s == null ? "" : s)
+  .replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;")
+  .replace(/"/g,"&quot;").replace(/'/g,"&#39;");
+
+const TODAY = new Date();
+TODAY.setHours(0,0,0,0);
+const daysBetween = (iso) => Math.round((TODAY - new Date(iso + "T00:00:00")) / 86400000);
+
+function dayLabel(iso){
+  const d = new Date(iso + "T00:00:00");
+  const diff = daysBetween(iso);
+  const thisYear = TODAY.getFullYear() === d.getFullYear();
+  const date = (thisYear ? "" : d.getFullYear() + "年") + (d.getMonth()+1) + "月" + d.getDate() + "日";
+  let tag = WEEK[d.getDay()];
+  if (diff === 0) tag = "今天";
+  else if (diff === 1) tag = "昨天";
+  else if (diff > 1 && diff < 7) tag = diff + "天前";
+  return { date, tag, isNew: diff >= 0 && diff <= NEW_DAYS };
+}
+
+function match(item){
+  if (state.cat !== "全部" && item.c !== state.cat) return false;
+  if (state.range && daysBetween(item.d) > state.range) return false;
+  if (state.q){
+    const k = state.q.trim().toLowerCase();
+    if (!(item.t + " " + (item.x||"") + " " + (item.no||"") + " " + (item.s||"") + " " + item.c)
+        .toLowerCase().includes(k)) return false;
+  }
+  return true;
+}
+
+function renderChips(){
+  const counts = {};
+  DATA.forEach(i => counts[i.c] = (counts[i.c] || 0) + 1);
+  const cats = CATS.filter(c => c === "全部" || (counts[c] || 0) > 0);
+  el("chips").innerHTML = cats.map(c => {
+    const n = c === "全部" ? DATA.length : counts[c];
+    return '<button class="chip" data-cat="' + esc(c) + '" aria-pressed="' + (state.cat === c) + '">'
+      + esc(c) + '<span class="n">' + n + '</span></button>';
+  }).join("");
+}
+
+function renderStats(shown){
+  const catSet = new Set(DATA.map(i => i.c));
+  el("statline").innerHTML =
+    '<span><b>' + shown + '</b>条' + (shown === DATA.length ? "" : " / 共 " + DATA.length + " 条") + '</span>'
+    + '<span><b>' + catSet.size + '</b>个主题</span>'
+    + '<span>最近一条 ' + (DATA.length ? DATA[0].d.replace(/-/g,"/") : "—") + '</span>';
+  const fetched = META.fetchedAt ? META.fetchedAt.replace(/^\d{4}-/, "").replace("-", "/") : "—";
+  el("dataRange").textContent = "数据更新于 " + fetched;
+}
+
+function renderList(){
+  if (!DATA.length){
+    el("statline").innerHTML = "";
+    el("dataRange").textContent = "暂无数据";
+    el("list").innerHTML = '<div class="empty"><p>还没有数据。<br>'
+      + '在 hr-policy 文件夹里运行 <b>python fetch_policies.py</b>，脚本会把抓到的政策写进本页。</p></div>';
+    return;
+  }
+
+  const rows = DATA.filter(match).sort((a,b) => a.d < b.d ? 1 : (a.d > b.d ? -1 : 0));
+  renderStats(rows.length);
+
+  if (!rows.length){
+    el("list").innerHTML = '<div class="empty"><p>没有符合条件的政策。换个词，或把主题和时间切回默认。</p>'
+      + '<button class="reset" id="resetBtn">清除筛选</button></div>';
+    el("resetBtn").addEventListener("click", () => {
+      state.cat = "全部"; state.q = ""; state.range = 0;
+      el("q").value = ""; el("range").value = "0";
+      renderChips(); renderList();
+    });
+    return;
+  }
+
+  const perDay = {};
+  rows.forEach(it => perDay[it.d] = (perDay[it.d] || 0) + 1);
+
+  let html = "";
+  let cur = "";
+  rows.forEach(it => {
+    if (it.d !== cur){
+      if (cur) html += "</ul></div>";
+      cur = it.d;
+      const L = dayLabel(it.d);
+      html += '<div class="day">'
+        + '<div class="day-head"><span class="day-date serif">' + L.date + '</span>'
+        + '<span class="day-tag">' + (L.isNew ? '<span class="dot"></span>' : "") + L.tag + '</span>'
+        + '<span class="day-count">' + perDay[it.d] + ' 条</span></div>'
+        + '<ul class="items">';
+    }
+    html += '<li class="item">'
+      + '<div class="item-body">'
+      + '<h3 class="item-title">' + esc(it.t) + '</h3>'
+      + (it.x ? '<p class="item-summary">' + esc(it.x) + '</p>' : "")
+      + (it.z ? '<p class="item-note"><span class="k">总结</span>' + esc(it.z) + '</p>' : "")
+      + '<div class="item-meta">'
+      + '<span class="cat">' + esc(it.c) + '</span>'
+      + '<span class="src">' + esc(it.s || "上海市人社局") + '</span>'
+      + (it.no ? '<span class="docno">' + esc(it.no) + '</span>' : "")
+      + '</div></div>'
+      + '<div class="item-act">' + (it.u
+          ? '<a class="link-btn" href="' + esc(it.u) + '" target="_blank" rel="noopener">原文</a>'
+          : '<button class="link-btn" data-none="1">原文</button>')
+      + '</div>'
+      + '</li>';
+  });
+  html += "</ul></div>";
+  el("list").innerHTML = html;
+}
+
+/* 交互 */
+el("chips").addEventListener("click", (e) => {
+  const b = e.target.closest(".chip");
+  if (!b) return;
+  state.cat = b.dataset.cat;
+  renderChips(); renderList();
+});
+
+let timer = null;
+el("q").addEventListener("input", (e) => {
+  clearTimeout(timer);
+  timer = setTimeout(() => { state.q = e.target.value; renderList(); }, 180);
+});
+
+el("range").addEventListener("change", (e) => {
+  state.range = Number(e.target.value);
+  renderList();
+});
+
+el("list").addEventListener("click", (e) => {
+  const btn = e.target.closest(".link-btn");
+  // 有链接的走 <a href>，浏览器自己打开，不依赖弹窗权限；
+  // 只有没链接的那几条才走提示
+  if (btn && btn.dataset.none) toast("这条没有原文链接。");
+});
+
+document.querySelectorAll(".tab").forEach(t => {
+  t.addEventListener("click", () => {
+    document.querySelectorAll(".tab").forEach(x => x.setAttribute("aria-selected", x === t));
+    const lib = t.dataset.tab === "library";
+    el("viewList").hidden = lib;
+    el("viewLibrary").hidden = !lib;
+    if (lib) renderLib();
+  });
+});
+
+/* ==========================================================
+   资料库：本地登记 + 导出/导入
+   存储键固定，改名会导致旧数据读不到
+   ========================================================== */
+const LIB_KEY = "hr_policy_library_v1";
+let LIB = [];
+
+function loadLib(){
+  try { LIB = JSON.parse(localStorage.getItem(LIB_KEY) || "[]"); }
+  catch (e) { LIB = []; }
+  if (!Array.isArray(LIB)) LIB = [];
+}
+function saveLib(){
+  try { localStorage.setItem(LIB_KEY, JSON.stringify(LIB)); return true; }
+  catch (e) { toast("保存失败：当前环境不允许本地存储（在线预览常见），下载到本机或部署后正常"); return false; }
+}
+
+function libMatch(it){
+  if (!state.libQ) return true;
+  const k = state.libQ.trim().toLowerCase();
+  return (it.title + " " + (it.note||"") + " " + it.type).toLowerCase().includes(k);
+}
+
+function renderLib(){
+  loadLib();
+  const rows = LIB.filter(libMatch).sort((a,b) => a.date < b.date ? 1 : (a.date > b.date ? -1 : 0));
+
+  el("libStat").innerHTML = LIB.length
+    ? '<span><b>' + rows.length + '</b>份' + (rows.length === LIB.length ? "" : " / 共 " + LIB.length + " 份")
+      + '</span><span>最近登记 ' + (LIB[0] ? LIB[0].date.replace(/-/g,"/") : "—") + '</span>'
+    : '<span>还没有登记任何资料</span>';
+
+  if (!LIB.length){
+    el("libList").innerHTML = '<div class="empty" style="border-top:0;padding:48px 0 40px">'
+      + '<p>资料柜是空的。<br>把常用的政策原文、解读、公司制度登记进来，下次遇到事就不用翻聊天记录。</p>'
+      + '<button class="reset" id="libEmptyAdd">登记第一份</button></div>';
+    el("libEmptyAdd").addEventListener("click", openForm);
+    return;
+  }
+
+  if (!rows.length){
+    el("libList").innerHTML = '<div class="empty"><p>没有匹配的资料。</p></div>';
+    return;
+  }
+
+  el("libList").innerHTML = '<ul class="lib-list">' + rows.map(it =>
+    '<li class="lib-item">'
+    + '<div class="item-body">'
+    + '<h3 class="lib-title">' + esc(it.title) + '</h3>'
+    + (it.note ? '<p class="lib-note">' + esc(it.note) + '</p>' : "")
+    + '<div class="lib-meta"><span class="cat">' + esc(it.type) + '</span>'
+    + '<span>' + esc(it.date.replace(/-/g,"/")) + '</span></div>'
+    + '</div>'
+    + '<div class="lib-act">'
+    + (it.url ? '<a class="link-btn" href="' + esc(it.url) + '" target="_blank" rel="noopener">打开</a>' : "")
+    + '<button class="lib-del" data-del="' + esc(it.id) + '">删除</button>'
+    + '</div></li>').join("") + '</ul>';
+}
+
+function openForm(){
+  el("libForm").hidden = false;
+  el("fDate").value = new Date().toISOString().slice(0,10);
+  el("fTitle").focus();
+}
+function closeForm(){
+  el("libForm").hidden = true;
+  el("fTitle").value = "";
+  el("fUrl").value = "";
+  el("fNote").value = "";
+}
+
+el("libAdd").addEventListener("click", openForm);
+el("libCancel").addEventListener("click", closeForm);
+el("libCancel2").addEventListener("click", closeForm);
+
+el("libSave").addEventListener("click", () => {
+  const title = el("fTitle").value.trim();
+  if (!title){ toast("标题不能空，先写个名字"); return; }
+  const item = {
+    id: "L" + Date.now().toString(36) + Math.random().toString(36).slice(2,6),
+    title: title,
+    type: el("fType").value,
+    date: el("fDate").value || new Date().toISOString().slice(0,10),
+    url: el("fUrl").value.trim(),
+    note: el("fNote").value.trim()
+  };
+  LIB.unshift(item);
+  if (saveLib()){ closeForm(); renderLib(); toast("已登记"); }
+});
+
+el("libList").addEventListener("click", (e) => {
+  const del = e.target.closest("[data-del]");
+  if (!del) return;
+  const target = LIB.find(x => x.id === del.dataset.del);
+  if (!target) return;
+  if (confirm("删除《" + target.title + "》？只影响当前浏览器里的登记。")){
+    LIB = LIB.filter(x => x.id !== target.id);
+    saveLib(); renderLib(); toast("已删除");
+  }
+});
+
+let libTimer = null;
+el("libQ").addEventListener("input", (e) => {
+  clearTimeout(libTimer);
+  libTimer = setTimeout(() => { state.libQ = e.target.value; renderLib(); }, 180);
+});
+
+el("libExport").addEventListener("click", () => {
+  if (!LIB.length){ toast("还没有资料，没什么可导出的"); return; }
+  const blob = new Blob([JSON.stringify(LIB, null, 1)], {type:"application/json"});
+  const a = document.createElement("a");
+  a.href = URL.createObjectURL(blob);
+  a.download = "资料库备份-" + new Date().toISOString().slice(0,10) + ".json";
+  document.body.appendChild(a); a.click(); a.remove();
+  setTimeout(() => URL.revokeObjectURL(a.href), 2000);
+  toast("已导出备份，文件在下载目录");
+});
+
+el("libImportBtn").addEventListener("click", () => el("libImportFile").click());
+el("libImportFile").addEventListener("change", (e) => {
+  const file = e.target.files && e.target.files[0];
+  if (!file) return;
+  const reader = new FileReader();
+  reader.onload = () => {
+    try {
+      const incoming = JSON.parse(reader.result);
+      if (!Array.isArray(incoming)) throw new Error("格式不对");
+      const ids = new Set(LIB.map(x => x.id));
+      let added = 0;
+      incoming.forEach(x => {
+        if (x && x.title && !ids.has(x.id)){ LIB.push(x); ids.add(x.id); added++; }
+      });
+      saveLib(); renderLib();
+      toast("已导入 " + added + " 份");
+    } catch (err){
+      toast("读取失败，请选导出的那个 JSON 文件");
+    }
+    e.target.value = "";
+  };
+  reader.readAsText(file, "utf-8");
+});
+
+let toastTimer = null;
+function toast(msg){
+  const box = el("toast");
+  box.textContent = msg;
+  box.classList.add("on");
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => box.classList.remove("on"), 2600);
+}
+
+renderChips();
+renderList();
+</script>
+</body>
+</html>
