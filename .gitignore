@@ -1,0 +1,7 @@
+__pycache__/
+*.pyc
+*.tmp
+index.html.tmp
+_backup/
+资料库备份-*.json
+#（注：内容由AI生成）
